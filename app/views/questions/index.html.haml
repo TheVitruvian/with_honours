@@ -1,0 +1,14 @@
+%section.container
+
+
+  .top-posts-container
+    %h2 Top Questions
+    - @questions.each do |question| 
+      .post-break
+        %hr
+      .post-score
+        = "#{question.up_votes_count} - #{question.up_votes_count}"
+      .post-comment
+        = link_to question.title, question
+    .post-break
+      %hr
