@@ -1,12 +1,14 @@
 WithHonours::Application.routes.draw do
+  
+
   devise_for :companies
 
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users
   devise_scope :user do
     resources :users, :only => [:index] 
   end
   
-  root :to => "root#index"
+  root :to => "questions#index"
 
   resources :questions do 
     member do

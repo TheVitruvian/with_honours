@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131209191840) do
+ActiveRecord::Schema.define(:version => 20131210170458) do
 
   create_table "answers", :force => true do |t|
     t.integer  "owner_id"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(:version => 20131209191840) do
     t.datetime "updated_at",                          :null => false
     t.integer  "up_votes_count",   :default => 0
     t.integer  "down_votes_count", :default => 0
+  end
+
+  create_table "answers_votes", :force => true do |t|
+    t.integer "owner_id"
+    t.string  "owner_type"
+    t.integer "vote"
+  end
+
+  create_table "comment_votes", :force => true do |t|
+    t.integer "owner_id"
+    t.string  "owner_type"
+    t.integer "vote"
   end
 
   create_table "comments", :force => true do |t|
@@ -52,10 +64,20 @@ ActiveRecord::Schema.define(:version => 20131209191840) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "companies", ["email"], :name => "index_companies_on_email", :unique => true
   add_index "companies", ["reset_password_token"], :name => "index_companies_on_reset_password_token", :unique => true
+
+  create_table "question_votes", :force => true do |t|
+    t.integer "owner_id"
+    t.string  "owner_type"
+    t.integer "vote"
+  end
 
   create_table "questions", :force => true do |t|
     t.integer  "owner_id"
@@ -103,6 +125,10 @@ ActiveRecord::Schema.define(:version => 20131209191840) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.string   "provider"
     t.string   "uid"
   end

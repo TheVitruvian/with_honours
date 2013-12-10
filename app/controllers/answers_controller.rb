@@ -4,8 +4,8 @@ def create
     @question = Question.find(params[:question_id])
     @answer = Answer.new(params[:answer])
     @answer.post_id = @question
-    @answer.owner_id = current_user.owner_id
-    @answer.owner_type = current_user.owner_type
+    @answer.owner_id = current_user.id
+    @answer.owner_type = current_user.class.to_s
 
     respond_to do |format|
       if @answer.save

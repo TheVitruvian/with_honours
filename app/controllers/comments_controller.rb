@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment])
     @comment.answer_id = @question
     @comment.post_id = @answer
-    @comment.owner_id = current_user.owner_id
-    @comment.owner_type = current_user.owner_type
+    @comment.owner_id = current_user.id
+    @comment.owner_type = current_user.class.to_s
 
     respond_to do |format|
       if @answer.save

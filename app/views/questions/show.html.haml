@@ -5,9 +5,15 @@
     .slideshow-contrast
       = "#{@question.content} - #{@question.owner.user_name}"
 
-    %ul#comments
-      - @question.answers.order("created_at DESC").limit(5).each do |answer|
-        %li= "#{answer.content}"
+    %ul#answers
+      - @question.answers.order("created_at DESC").each do |answer|
+        %li= "#{answer.content} - #{answer.owner.user_name}"
+        %ul#answers
+          - answer.comments.each do |comment|
+            %li= "#{comment.content} - #{comment.owner.user_name}"
+
+
+      %hr
 
       / = form_for [@question, @question.answer.build] do |f|
       /   %p= f.text_area :content, :size => '30x5', placeholder: "Comment..."

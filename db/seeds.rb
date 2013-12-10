@@ -20,7 +20,7 @@ user3 = User.create!(user_name: "Alex", first_name: "Alex", profile_picture: nil
 user4 = User.create!(user_name: "Adam", first_name: "Adam", profile_picture: nil, role: 'user', email: "adam.buchan@gmail.com", password: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2013-11-18 11:18:14", last_sign_in_at: "2013-11-17 18:29:11", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1")
 user5 = User.create!(user_name: "AlexF", first_name: "AlexF", profile_picture: nil, role: 'user', email: "fakealexf@fakealexf.com", password: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2013-11-18 11:18:14", last_sign_in_at: "2013-11-17 18:29:11", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1")
 
-company1 = Company.create!(user_name: "General Assembly")
+company1 = Company.create!(user_name: "General Assembly", email: "ga@ga.com", password: "password")
 
 question1 = Question.create!(owner_type: "user", title: "Jokes!", content: 'Tell me a knock knock joke', image: 'placeholder')
 question2 = Question.create!(owner_type: "company", title: "Jokes!", content: 'A journey of a thousand leagues begins beneath one’s feet.', image: 'placeholder')
@@ -51,16 +51,43 @@ question1.answers << answer1
 question2.answers << answer3
 question7.answers << answer2
 
+comment1 = Comment.create!(content: 'So true!')
+comment2 = Comment.create!(content: 'Needed to read this today!')
+comment3 = Comment.create!(content: 'Amazing words of wisdom')
+comment4 = Comment.create!(content: 'Spot on!')
+comment5 = Comment.create!(content: 'Cool!')
+comment6 = Comment.create!(content: 'Awesome!')
+comment7 = Comment.create!(content: 'Great Quote!')
+comment8 = Comment.create!(content: 'This is silly!')
+comment9 = Comment.create!(content: 'Troll!')
+comment10 = Comment.create!(content: 'Super Troll!')
 
-    
+answer1.comments << comment1
+answer1.comments << comment2
+answer1.comments << comment3
+answer2.comments << comment4
+answer2.comments << comment5
+answer2.comments << comment6
+answer2.comments << comment7
+answer2.comments << comment8
+answer3.comments << comment9
+answer3.comments << comment10
 
-# comment1 = Comment.create!(content: 'So true!')
-# comment2 = Comment.create!(content: 'Needed to read this today!')
-# comment3 = Comment.create!(content: 'Amazing words of wisdom')
-# comment4 = Comment.create!(content: 'Spot on!', flag: true)
-# comment5 = Comment.create!(content: 'Cool!', flag: true)
-# comment6 = Comment.create!(content: 'Awesome!', flag: true)
-# comment7 = Comment.create!(content: 'Great Quote!', flag: true)
-# comment8 = Comment.create!(content: 'This is silly!', flag: true)
-# comment9 = Comment.create!(content: 'Troll!', flag: true)
-# comment10 = Comment.create!(content: 'Super Troll!', flag: true)
+user1.comments << comment1
+user4.comments << comment2
+user5.comments << comment3
+user5.comments << comment4
+user5.comments << comment5
+user2.comments << comment6
+user4.comments << comment7
+user2.comments << comment8
+user3.comments << comment9
+user2.comments << comment10
+
+
+
+
+
+
+
+
