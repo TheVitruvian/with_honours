@@ -3,20 +3,37 @@
   %head
   %body.slideshow
     .slideshow-contrast
+      %h5= "#{@question.title}"
       = "#{@question.content} - #{@question.owner.user_name}"
+      - if can? :edit, @question
+        = link_to 'Edit', edit_question_path(@question)
+      - if can? :destroy, @question
+        = link_to 'Delete', question_path(@question), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    = form_for [@question, @question.answers.build] do |f|
+      %p= f.text_area :content, :size => '50x5', placeholder: "Have a good answer...?"
+      %p= f.submit "Post answer", disabled: false
+      
+
 
     %ul#answers
       - @question.answers.order("created_at DESC").each do |answer|
         %li= "#{answer.content} - #{answer.owner.user_name}"
-        %ul#answers
-          - answer.comments.each do |comment|
-            %li= "#{comment.content} - #{comment.owner.user_name}"
+        - if can? :edit, answer
+          = link_to 'Edit', edit_question_answer_path(@question, answer)
+        - if can? :destroy, answer
+          = link_to 'Delete', question_answer_path(@question, answer), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %ul
+            - answer.comments.each do |comment|
+              %li= "#{comment.content} - #{comment.owner.user_name}"
+              - if can? :edit, comment
+                = link_to 'Edit', edit_question_answer_comment_path(@question, answer, comment)
+              - if can? :destroy, comment
+                = link_to 'Delete', question_answer_comment_path(@question, answer, comment), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        = form_for [@question, answer, answer.comments.build] do |f|
+          %p= f.text_field :content, placeholder: "Comment..."
+          %p= f.submit "Post comment", disabled: false
 
 
       %hr
-
-      / = form_for [@question, @question.answer.build] do |f|
-      /   %p= f.text_area :content, :size => '30x5', placeholder: "Comment..."
-
-      /   #digits-left Characters left: 70
-      /   %p= f.submit "Post comment", disabled: true

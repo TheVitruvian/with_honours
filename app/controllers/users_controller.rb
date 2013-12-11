@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < Devise::RegistrationsController
   # GET /users
   # GET /users.json
   def index
@@ -8,6 +8,26 @@ class UsersController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @users }
     end
+  end
+
+  def new
+    super
+  end
+
+  def create
+    super
+  end
+
+  def edit
+    super
+  end
+
+  def destroy
+    super
+  end
+
+  def create
+    super
   end
 
   def my_questions

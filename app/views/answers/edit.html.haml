@@ -1,0 +1,5 @@
+%h1 Editing question
+
+= form_for [@question, @answer] do |f|
+  %p= f.text_area :content, :size => '50x5', placeholder: "Have a good answer...?"
+  %p= f.submit "Post answer", disabled: false

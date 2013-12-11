@@ -1,0 +1,5 @@
+%h1 Editing question
+
+= form_for [@question, @answer, @comment] do |f|
+  %p= f.text_field :content, placeholder: "Comment..."
+  %p= f.submit "Post comment", disabled: false

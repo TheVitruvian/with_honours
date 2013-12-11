@@ -22,6 +22,7 @@ end
 gem 'jquery-rails'
 gem 'pg'
 
+
 gem "will_paginate", "~> 3.0"
 gem "haml-rails"
 gem 'pry-rails'
@@ -46,7 +47,7 @@ group :development, :test do
   # gem 'pry-stack_explorer'
   gem 'annotate'
   gem 'quiet_assets'
-  # gem 'better_errors'
+  gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
   gem "rspec-rails"

@@ -6,13 +6,13 @@
         - @question.errors.full_messages.each do |msg|
           %li= msg
 
-    #post-input
-    .field#post-text-area
-      = f.text_label :title, placeholder: "Question title..."
-    .field#post-text-area
-      = f.text_area :content, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
-    .field#post-image-box
-      = f.label :image
-      = f.file_field :image
-    .actions
-      %input{:type => "submit", :value => "Submit", :class => "button", :id => "post_submit", :content => :content, :name => 'submit'}
+  #post-input
+  .field
+    = f.text_field :title, placeholder: "Question title..."
+  .field
+    = f.text_area :content, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
+  .field
+    = f.label :image
+    = f.file_field :image
+  .actions
+    %input{:type => "submit", :value => "Submit", :class => "button", :id => "post_submit", :content => :content, :name => 'submit'}

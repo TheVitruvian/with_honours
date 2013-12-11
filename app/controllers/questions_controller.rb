@@ -1,4 +1,7 @@
 class QuestionsController < ApplicationController
+  
+  before_filter :authenticate_user_or_company, except: [:index, :show]
+
   def index
     @questions = Question.all
 
@@ -12,35 +15,38 @@ class QuestionsController < ApplicationController
   end
 
   def new
+    authorize! :create, Question
     @question = Question.new
   end
 
   def show
     @question = Question.find(params[:id])
+    authorize! :read, @question
+    @current_agent = current_agent
   end
 
   def create
-      @question = Question.new(params[:question])
-      @question.owner_id = current_user.id
-      @question.owner_type = current_user.class.to_s
-
-      respond_to do |format|
-        if @answer.save
-          format.html { redirect_to @question, notice: 'Answer was successfully created.' }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @question.errors, status: :unprocessable_entity }
-        end
+    authorize! :create, Question
+    @question = Question.new(params[:question])
+    @question.owner_id = current_agent.id ||= current_company.id
+    @question.owner_type = current_agent.class.to_s
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @question, notice: 'Answer was successfully created.' }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
+    end
   end
 
-  def update
-    @post = Post.find(params[:id])
-    authorize! :update, @post
+  def edit
+    @question = Question.find(params[:id])
+    authorize! :update, @question
 
     respond_to do |format|
-      if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+      if @question.update_attributes(params[:question])
+        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
       else
         format.html { render action: "edit" }
       end
@@ -50,13 +56,7 @@ class QuestionsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @post = Post.find(params[:id])
-    authorize! :destroy, @post
     
-    @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url }
-    end
   end
 
 end

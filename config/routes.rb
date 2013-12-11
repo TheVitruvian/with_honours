@@ -1,9 +1,9 @@
 WithHonours::Application.routes.draw do
   
 
-  devise_for :companies
+  devise_for :companies, :controllers => {:registrations => 'companies'}
+  devise_for :users, :controllers => {:registrations => 'users'}
 
-  devise_for :users
   devise_scope :user do
     resources :users, :only => [:index] 
   end
