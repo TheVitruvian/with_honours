@@ -1,11 +1,15 @@
 WithHonours::Application.routes.draw do
   
 
-  devise_for :companies, :controllers => {:registrations => 'companies'}
-  devise_for :users, :controllers => {:registrations => 'users'}
+  devise_for :companies#, :controllers => {:registrations => 'companies'}
+  devise_for :users#, :controllers => {:registrations => 'users'}
 
   devise_scope :user do
-    resources :users, :only => [:index] 
+    resources :users
+  end
+
+  devise_scope :company do
+    resources :companies
   end
   
   root :to => "questions#index"

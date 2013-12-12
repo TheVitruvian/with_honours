@@ -7,23 +7,19 @@
     = csrf_meta_tags
   %body 
     %header.nav-bar
-
-      - if (current_user.class == User) || (current_company.class == Company)
-
+      - current_agent = (current_user) || (current_company)
+      - if current_agent
         .nav-link-right
-          = link_to 'Logout',  destroy_user_session_path, method: :delete
+          = link_to 'Logout',  send("destroy_#{current_agent.class.to_s.downcase}_session_path"), method: :delete
         .nav-link-right
           \| 
         .nav-link-right
           Logged in as
-          - if (current_user.class == User)
-            = current_user.user_name
-          -else
-            ="#{current_company.user_name}"
+          = current_agent.user_name
         .nav-link-right
           \|
         .nav-link-right
-          = link_to 'Edit Profile', edit_user_registration_path
+          = link_to 'Edit Profile', send("edit_#{current_agent.class.to_s.downcase}_registration_path")
         .nav-link-right
           = link_to 'New Question', new_question_path
 
@@ -31,11 +27,11 @@
 
       - else
         .nav-link-right
-          = link_to 'Sign Up', new_user_registration_path
+          = link_to 'Student Sign Up', new_user_registration_path
         .nav-link-right
           \|
         .nav-link-right
-          = link_to 'Sign In', new_user_session_path
+          = link_to 'Student Sign In', new_user_session_path
         .nav-link-right
         /   \|
         / .nav-link-right

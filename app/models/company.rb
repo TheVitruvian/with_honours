@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -17,4 +17,6 @@ class Company < ActiveRecord::Base
   has_many :comment_votes,  as: :owner
 
   validates :user_name, presence: true, uniqueness: true
+
+  mount_uploader :logo, ImageUploader
 end

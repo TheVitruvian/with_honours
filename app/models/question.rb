@@ -9,6 +9,8 @@ class Question < ActiveRecord::Base
   validates :title, presence: true
   validates :content, presence: true
 
+  mount_uploader :image, ImageUploader
+
 
   def adjust_question_score()
     #adjust question score according to vote cast
