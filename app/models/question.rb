@@ -14,7 +14,7 @@ class Question < ActiveRecord::Base
 
   def adjust_question_score()
     #adjust question score according to vote cast
-    #use Question.sum("upvotes")?
+    Question.sum("upvotes")
   end
 
   def check_if_voted()
