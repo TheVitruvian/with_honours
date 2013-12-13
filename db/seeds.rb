@@ -22,13 +22,13 @@ user5 = User.create!(user_name: "AlexF", first_name: "AlexF", profile_picture: n
 
 company1 = Company.create!(user_name: "General Assembly", email: "ga@ga.com", password: "password")
 
-question1 = Question.create!(owner_type: "user", title: "Jokes!", content: 'Tell me a knock knock joke', image: 'placeholder')
-question2 = Question.create!(owner_type: "company", title: "Jokes!", content: 'A journey of a thousand leagues begins beneath one’s feet.', image: 'placeholder')
-question3 = Question.create!(owner_type: "user", title: "Jokes!", content: 'Do not go where the path may lead; go instead where there is no path and leave a trail.', image: 'placeholder')
-question4 = Question.create!(owner_type: "company", title: "Jokes!", content: 'I haven’t failed. I’ve just found 10,000 ways that won’t work.', image: 'placeholder')
-question5 = Question.create!(owner_type: "user", title: "Jokes!", content: 'The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart', image: 'placeholder')
-question6 = Question.create!(owner_type: "user", title: "Jokes!", content: 'It is during our darkest moments that we must focus to see the light', image: 'placeholder')
-question7 = Question.create!(owner_type: "user", title: "Jokes!", content: 'Try to be like the turtle - at ease in your own shell.', image: 'placeholder')
+question1 = Question.create!(hotness: 1, owner_type: "user", title: "Jokes!", content: 'Tell me a knock knock joke', image: 'placeholder')
+question2 = Question.create!(hotness: 10, owner_type: "company", title: "Jokes!", content: 'A journey of a thousand leagues begins beneath one’s feet.', image: 'placeholder')
+question3 = Question.create!(hotness: 100, owner_type: "user", title: "Jokes!", content: 'Do not go where the path may lead; go instead where there is no path and leave a trail.', image: 'placeholder')
+question4 = Question.create!(hotness: 1000, owner_type: "company", title: "Jokes!", content: 'I haven’t failed. I’ve just found 10,000 ways that won’t work.', image: 'placeholder')
+question5 = Question.create!(hotness: 10000, owner_type: "user", title: "Jokes!", content: 'The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart', image: 'placeholder')
+question6 = Question.create!(hotness: 212, owner_type: "user", title: "Jokes!", content: 'It is during our darkest moments that we must focus to see the light', image: 'placeholder')
+question7 = Question.create!(hotness: 11232, owner_type: "user", title: "Jokes!", content: 'Try to be like the turtle - at ease in your own shell.', image: 'placeholder')
 
 answer1 = Answer.create!(owner_type: "company", content: 'Happiness is not something you postpone for the future; it is something you design for the present.')
 answer2 = Answer.create!(owner_type: "user", content: 'What we achieve inwardly will change outer reality.')

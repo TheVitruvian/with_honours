@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
       if @comment.save
         format.html { redirect_to Question.find(params[:question_id]), notice: 'Comment was successfully created.' }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to @question, alert: 'Comment cannot be blank.' }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end

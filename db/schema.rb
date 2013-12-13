@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131210170458) do
+ActiveRecord::Schema.define(:version => 20131213164141) do
 
   create_table "answer_votes", :force => true do |t|
     t.integer "owner_id"
@@ -93,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20131210170458) do
     t.datetime "updated_at",                          :null => false
     t.integer  "up_votes_count",   :default => 0
     t.integer  "down_votes_count", :default => 0
+    t.string   "category"
+    t.float    "hotness",          :default => 0.0
   end
 
   create_table "stars", :force => true do |t|

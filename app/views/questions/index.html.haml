@@ -7,7 +7,7 @@
       .questions-break
         %hr
       .questions-score
-        = "Score: #{question.up_votes_count + question.down_votes_count}"
+        = "Score: #{question.hotness}"
         = "Answers: #{question.answers.count}"
         %br
         = link_to question.title, question

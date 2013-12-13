@@ -4,11 +4,16 @@ class Question < ActiveRecord::Base
   has_many :question_votes
   has_many :answers
 
-  attr_accessible :content, :owner_id, :owner_type, :title, :image, :flag  
+  attr_accessible :content, :owner_id, :owner_type, :title, :image, :flag, :hotness 
 
   validates :title, presence: true
-  validates :content, presence: true
+  
+  after_save :update_hotness
 
   mount_uploader :image, ImageUploader
+
+  def update_hotness
+    self.hotness = (self.up_votes_count - self.down_votes_count) / (Time.now - self.created_at)**1.5
+  end
 
 end

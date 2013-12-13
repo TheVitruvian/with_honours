@@ -5,14 +5,7 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def index
-    @questions = Question.all
-
-    #insert bespoke sorting algorithum
-    # SELECT id, title FROM videos ORDER BY LOG10(ABS(up_votes_count - down_votes_count) + 1) * SIGN(up_votes_count - down_votes_count) + (UNIX_TIMESTAMP(created_at) / 300000) DESC LIMIT 50
-
-    # or:
-    # SELECT Title, LOG10(up_votes_count - down_votes_count + 1) * 287015 + UNIX_TIMESTAMP(created_at) AS Hotness
-    # ORDER BY Hotness DESC
+    @questions = Question.order(:hotness).reverse
 
   end
 
@@ -23,6 +16,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answers = @question.answers.order(:up_votes_count, :down_votes_count).reverse
+
     authorize! :read, @question
     @current_agent = current_agent
   end
@@ -34,7 +29,7 @@ class QuestionsController < ApplicationController
     @question.owner_type = current_agent.class.to_s
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Answer was successfully created.' }
+        format.html { redirect_to @question, notice: 'Question was successfully created.' }
       else
         format.html { render action: "new" }
         format.json { render json: @question.errors, status: :unprocessable_entity }

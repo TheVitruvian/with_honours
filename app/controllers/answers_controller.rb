@@ -41,7 +41,7 @@ class AnswersController < ApplicationController
       if @answer.save
         format.html { redirect_to @question, notice: 'Answer was successfully created.' }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to @question, alert: 'Answer cannot be blank.' }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
