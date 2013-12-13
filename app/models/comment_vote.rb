@@ -1,4 +1,4 @@
-class QuestionVote < ActiveRecord::Base
+class CommentVote < ActiveRecord::Base
 
   belongs_to :owner, :polymorphic => true
   belongs_to :comment

@@ -7,10 +7,21 @@
       .questions-break
         %hr
       .questions-score
-        = "#{question.up_votes_count- question.up_votes_count}"
-      
-
-      .questions-comment
+        = "Score: #{question.up_votes_count + question.down_votes_count}"
+        = "Answers: #{question.answers.count}"
+        %br
         = link_to question.title, question
+        %br
+        = link_to question.content, question
+        %br
+        - if can? :vote, question
+          = link_to "up", vote_question_path(question) + "?vote=1&index=true", method: :put
+        - if can? :vote, question
+          = link_to "down", vote_question_path(question) + "?vote=-1&index=true", method: :put
+        - if can? :edit, question
+          = link_to 'Edit', edit_question_path(question)
+        - if can? :destroy, question
+          = link_to 'Delete', question_path(question), method: :delete, :data => { :confirm => 'Are you sure?' }
+
     .questions-break
       %hr

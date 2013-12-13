@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery  
 
-  def current_ability
-    
+  def current_ability 
     if current_user
       @current_ability = UserAbility.new(current_user)
     else

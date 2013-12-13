@@ -1,10 +1,16 @@
 !!!
 %html
   %head
-  %body.slideshow
-    .slideshow-contrast
-      %h5= "#{@question.title}"
+  %body
+    %div
+      %h3= "#{@question.title}"
       = "#{@question.content} - #{@question.owner.user_name}"
+      %br
+      = "Score: #{@question.up_votes_count + @question.down_votes_count}"
+      - if can? :vote, @question
+        = link_to "Up vote", vote_question_path(@question) + "?vote=1", method: :put
+      - if can? :vote, @question
+        = link_to "Down vote", vote_question_path(@question) + "?vote=-1", method: :put
       - if can? :edit, @question
         = link_to 'Edit', edit_question_path(@question)
       - if can? :destroy, @question
@@ -13,12 +19,15 @@
     = form_for [@question, @question.answers.build] do |f|
       %p= f.text_area :content, :size => '50x5', placeholder: "Have a good answer...?"
       %p= f.submit "Post answer", disabled: false
-      
-
 
     %ul#answers
       - @question.answers.order("created_at DESC").each do |answer|
         %li= "#{answer.content} - #{answer.owner.user_name}"
+        = "Score: #{answer.up_votes_count + answer.down_votes_count}"
+        - if can? :vote, answer
+          = link_to "Up vote", vote_question_answer_path(@question, answer) + "?vote=1", method: :put
+        - if can? :vote, answer
+          = link_to "Down vote", vote_question_answer_path(@question, answer) + "?vote=-1", method: :put
         - if can? :edit, answer
           = link_to 'Edit', edit_question_answer_path(@question, answer)
         - if can? :destroy, answer
@@ -26,6 +35,11 @@
           %ul
             - answer.comments.each do |comment|
               %li= "#{comment.content} - #{comment.owner.user_name}"
+              = "Score: #{comment.up_votes_count + comment.down_votes_count}"
+              - if can? :vote, comment
+                = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment) + "?vote=1", method: :put
+              - if can? :vote, comment
+                = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment) + "?vote=-1", method: :put
               - if can? :edit, comment
                 = link_to 'Edit', edit_question_answer_comment_path(@question, answer, comment)
               - if can? :destroy, comment

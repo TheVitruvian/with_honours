@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20131210170458) do
 
+  create_table "answer_votes", :force => true do |t|
+    t.integer "owner_id"
+    t.string  "owner_type"
+    t.integer "answer_id"
+    t.integer "vote"
+  end
+
   create_table "answers", :force => true do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
@@ -25,15 +32,10 @@ ActiveRecord::Schema.define(:version => 20131210170458) do
     t.integer  "down_votes_count", :default => 0
   end
 
-  create_table "answers_votes", :force => true do |t|
-    t.integer "owner_id"
-    t.string  "owner_type"
-    t.integer "vote"
-  end
-
   create_table "comment_votes", :force => true do |t|
     t.integer "owner_id"
     t.string  "owner_type"
+    t.integer "comment_id"
     t.integer "vote"
   end
 
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20131210170458) do
   create_table "question_votes", :force => true do |t|
     t.integer "owner_id"
     t.string  "owner_type"
+    t.integer "question_id"
     t.integer "vote"
   end
 
