@@ -15,15 +15,13 @@
           \| 
         .nav-link-right
           Logged in as
-          = current_agent.user_name
+          = link_to current_agent.user_name, current_agent
         .nav-link-right
           \|
         .nav-link-right
           = link_to 'Edit Profile', send("edit_#{current_agent.class.to_s.downcase}_registration_path")
         .nav-link-right
-          = link_to 'New Question', new_question_path
-
-
+          = link_to 'New Question', send("new_question_path")
 
       - else
         .nav-link-right

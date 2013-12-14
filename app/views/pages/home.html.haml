@@ -1,0 +1,21 @@
+%h1 Welcome to WithHonours.co
+=link_to "See what's happening right now...", questions_path
+%br
+%iframe{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "430", :src => "http://www.youtube.com/embed/#{@video_id}", :title => "YouTube video player", :width => "640"}
+%p Sign up
+= form_for("user", :url => user_registration_path) do |f|
+  = f.text_field :user_name, placeholder: "Username"
+  = f.text_field :email, placeholder: "Email"
+  = f.password_field :password, placeholder: "Password"
+  = f.password_field :password_confirmation, placeholder: "Password Confirm"
+  = f.submit 'Sign up'
+
+%p Sign in
+= form_for("user", :url => user_session_path) do |f|
+  = f.text_field :email, placeholder: "Email"
+  = f.password_field :password, placeholder: "Password"
+  = f.check_box :remember_me
+  = f.label :remember_me
+  = f.submit 'Sign in'
+  = link_to "Forgot your password?", new_password_path('user')
+

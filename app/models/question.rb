@@ -4,7 +4,7 @@ class Question < ActiveRecord::Base
   has_many :question_votes
   has_many :answers
 
-  attr_accessible :content, :owner_id, :owner_type, :title, :image, :flag, :hotness 
+  attr_accessible :content, :owner_id, :owner_type, :title, :image, :flag, :hotness, :category
 
   validates :title, presence: true
   

@@ -1,5 +1,4 @@
 class University < ActiveRecord::Base
-  
-  attr_accessible :content, :owner_id, :owner_type, :title, :image, :flag 
+  attr_accessible :name
   has_many :users
 end

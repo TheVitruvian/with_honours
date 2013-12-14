@@ -9,7 +9,7 @@
   %div
     = f.label :email
     %br/
-    = f.email_field :email, :autofocus => true
+    = f.email_field :email
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
       Currently waiting confirmation for: #{resource.unconfirmed_email}
@@ -22,6 +22,27 @@
     = f.label :password_confirmation
     %br/
     = f.password_field :password_confirmation
+  %hr/
+  %div
+    = f.label :university
+    %br/
+    = f.select :university_id, University.all.map {|r| [r.name,r.id] } 
+  %div
+    = f.label :highest_degree_classification
+    %br/
+    = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD })
+  %div
+    = f.label :degree_title
+    %br/
+    = f.text_field :degree_title
+  %div
+    = f.label "Degree score achieved or predicted"
+    %br/
+    = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass })
+  %div
+    = f.label "Tick if you have achieved the above"
+    %br/
+    = f.check_box :degree_achieved
   %div
     = f.label :current_password
     %i (we need your current password to confirm your changes)

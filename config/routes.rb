@@ -1,8 +1,8 @@
 WithHonours::Application.routes.draw do
   
 
-  devise_for :companies#, :controllers => {:registrations => 'companies'}
-  devise_for :users#, :controllers => {:registrations => 'users'}
+  devise_for :companies
+  devise_for :users
 
   devise_scope :user do
     resources :users
@@ -11,8 +11,12 @@ WithHonours::Application.routes.draw do
   devise_scope :company do
     resources :companies
   end
-  
-  root :to => "questions#index"
+
+  authenticated :user do
+    root :to => "questions#index"
+  end
+
+  root :to => "pages#home"
 
   resources :questions do 
     member do

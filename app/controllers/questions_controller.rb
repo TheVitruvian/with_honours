@@ -6,7 +6,6 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.order(:hotness).reverse
-
   end
 
   def new

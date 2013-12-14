@@ -1,27 +1,11 @@
-class CompaniesController < Devise::RegistrationsController
+class CompaniesController < ApplicationController
+  
   def index
     @company = Company.all
   end
 
   def show
-    super
-  end
-
-  def new
-    super
-
-  end
-
-  def create
-    super
-  end
-
-  def edit
-    super
-  end
-
-  def destroy
-    super
+    @company= Company.find(params[:id])
   end
 
 end

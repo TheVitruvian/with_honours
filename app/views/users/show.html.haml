@@ -1,0 +1,25 @@
+= @user.user_name
+  -if current_agent = @user
+  = @user.first_name
+  = @user.last_name
+%br/
+= "Questions score: #{@question_up_score - @question_down_score}"
+%br/
+= "Answers score: #{@answer_up_score - @answer_down_score}"
+%br/
+= "Comments score: #{@comment_up_score - @comment_down_score}"
+%br/
+= "Voting score: #{@votes}"
+%br/
+= "University: #{@user.university.name}"
+%br/
+= "Degree: #{@user.degree_title}"
+%br/
+= "Type: #{@user.degree_classification}"
+%br/
+= "Classification: #{@user.degree_score}"
+%br/
+= "Achieved degree:"
+= check_box_tag "" , "" , @user.degree_achieved
+
+
