@@ -1,0 +1,21 @@
+one:
+  keywords: MyString
+  question_score: 1
+  answer_score: 1
+  comments_score: 1
+  university: MyString
+  degree_type: MyString
+  degree_achieved: false
+  degree_classification: MyString
+  total_score: 1
+
+two:
+  keywords: MyString
+  question_score: 1
+  answer_score: 1
+  comments_score: 1
+  university: MyString
+  degree_type: MyString
+  degree_achieved: false
+  degree_classification: MyString
+  total_score: 1

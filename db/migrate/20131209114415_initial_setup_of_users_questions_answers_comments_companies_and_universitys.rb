@@ -19,18 +19,18 @@ class InitialSetupOfUsersQuestionsAnswersCommentsCompaniesAndUniversitys < Activ
     end
 
     create_table :users do |t|
-      t.string  :first_name
-      t.string  :last_name
+      t.string  :first_name, :default => ""
+      t.string  :last_name, :default => ""
       t.string  :user_name
-      t.string  :degree_classification
-      t.string  :degree_score
-      t.boolean :degree_achieved
+      t.string  :degree_classification, :default => ""
+      t.string  :degree_score, :default => ""
+      t.boolean :degree_achieved, :default => false
       # t.string :email
-      t.text :profile_picture
+      t.text :profile_picture, :default => ""
       t.string :role, default: 'user'
       # t.string :password
       # t.string :password_confirmation
-      t.belongs_to :university
+      t.belongs_to :university, :default => ""
       t.timestamps
     end
 

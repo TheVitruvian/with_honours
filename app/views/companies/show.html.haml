@@ -1,0 +1,12 @@
+-if @company.logo.present?
+  =image_tag(@company.logo)
+= @company.user_name
+= @company.biography
+%br/
+= "Questions score: #{@question_up_score - @question_down_score}"
+%br/
+= "Answers score: #{@answer_up_score - @answer_down_score}"
+%br/
+= "Comments score: #{@comment_up_score - @comment_down_score}"
+%br/
+= "Voting score: #{@votes}"

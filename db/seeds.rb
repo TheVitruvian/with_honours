@@ -23,13 +23,13 @@ user5 = User.create!(user_name: "AlexF", first_name: "AlexF", profile_picture: n
 
 company1 = Company.create!(user_name: "General Assembly", email: "ga@ga.com", password: "password")
 
-question1 = Question.create!(hotness: 0, owner_type: "user", title: "Jokes!", content: 'Tell me a knock knock joke', image: 'placeholder')
-question2 = Question.create!(hotness: 0, owner_type: "company", title: "Jokes!", content: 'A journey of a thousand leagues begins beneath one’s feet.', image: 'placeholder')
-question3 = Question.create!(hotness: 0, owner_type: "user", title: "Jokes!", content: 'Do not go where the path may lead; go instead where there is no path and leave a trail.', image: 'placeholder')
-question4 = Question.create!(hotness: 0, owner_type: "company", title: "Jokes!", content: 'I haven’t failed. I’ve just found 10,000 ways that won’t work.', image: 'placeholder')
-question5 = Question.create!(hotness: 0, owner_type: "user", title: "Jokes!", content: 'The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart', image: 'placeholder')
-question6 = Question.create!(hotness: 0, owner_type: "user", title: "Jokes!", content: 'It is during our darkest moments that we must focus to see the light', image: 'placeholder')
-question7 = Question.create!(hotness: 0, owner_type: "user", title: "Jokes!", content: 'Try to be like the turtle - at ease in your own shell.', image: 'placeholder')
+question1 = Question.create!(hotness: 0, owner_type: "user", title: "How to market a 'difficult' product/service?", content: 'What first steps would you take when needing to communicate a sensitive or controversial service/product to the public?', image: 'placeholder')
+question2 = Question.create!(hotness: 0, owner_type: "company", title: "Overcoming conflict...", content: 'Key members of your senior team disagree about your companies brand identity - how do you help them come to a mutual decision?', image: 'placeholder')
+question3 = Question.create!(hotness: 0, owner_type: "user", title: "Marketing in a vacuum...", content: "Your company wants to launch a new service at short notice. You've been given very little background on the service itself. What do you do first?", image: 'placeholder')
+question4 = Question.create!(hotness: 0, owner_type: "company", title: "Communication strategy", content: 'What do you think the main elements to consider when writing an annual marketing/communications strategy?', image: 'placeholder')
+question5 = Question.create!(hotness: 0, owner_type: "user", title: "What impact has social media had on Government communications?", content: '', image: 'placeholder')
+question6 = Question.create!(hotness: 0, owner_type: "user", title: "Crisis management", content: 'The new CEO of the British Business Bank (who has been hired by BIS) has been accused of (insert any possible crimes). How will the Department minimise its reputational risk in hiring this man/woman?', image: 'placeholder')
+question7 = Question.create!(hotness: 0, owner_type: "user", title: "How would you deal with a peer who steels?", content: "Its your first week in a new job as a customer services rep in a busy retail store and you think that you've spotted that a colluge is stealing low value items that your store sells. How would you go about dealing with the situation?", image: 'placeholder')
 
 answer1 = Answer.create!(owner_type: "company", content: 'Happiness is not something you postpone for the future; it is something you design for the present.')
 answer2 = Answer.create!(owner_type: "user", content: 'What we achieve inwardly will change outer reality.')

@@ -1,5 +1,9 @@
+-if @user.profile_picture.present?
+  = @user.profile_picture
+  %br/
 = @user.user_name
-  -if current_agent = @user
+-if current_agent = @user
+  %br/
   = @user.first_name
   = @user.last_name
 %br/
@@ -10,8 +14,12 @@
 = "Comments score: #{@comment_up_score - @comment_down_score}"
 %br/
 = "Voting score: #{@votes}"
-%br/
-= "University: #{@user.university.name}"
+-if @user.university.present?
+  %br/
+  = "University: #{@user.university.name}"
+-else
+  %br/
+  = "University:"
 %br/
 = "Degree: #{@user.degree_title}"
 %br/

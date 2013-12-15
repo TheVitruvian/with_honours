@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def index
-    @questions = Question.order(:hotness).reverse
+    @questions = Question.order("hotness ASC")
   end
 
   def new
@@ -69,10 +69,10 @@ class QuestionsController < ApplicationController
 
   def vote
     #check if already voted
-    previous_vote_check = QuestionVote.where("owner_id=? AND owner_type=?", current_agent.id, current_agent.class.to_s)[0]
-    question = Question.find(params[:id])
     
-    # alter vote according to who is voting 
+    question = Question.find(params[:id])
+    previous_vote_check = QuestionVote.where("owner_id=? AND owner_type=? AND question_id=?", current_agent.id, current_agent.class.to_s, question.id)[0]
+    # alter vote according to who is voting  
     vote = WEIGHTED_SCORE*(params[:vote].to_i) if current_agent.class.to_s == "Company" || current_agent.role == "mentor" else vote = params[:vote].to_i
 
     #alter make or destroy record
@@ -116,12 +116,22 @@ class QuestionsController < ApplicationController
   end
 
   def remove_from_question_cache(previous_vote, question)
-    if previous_vote <0 then question.down_votes_count -= previous_vote else question.up_votes_count -= previous_vote end
+    if previous_vote <0 
+      question.down_votes_count -= previous_vote 
+    else 
+      question.up_votes_count -= previous_vote
+    end
+    question.owner.questions_score -= previous_vote
     question.save
   end
 
   def add_to_question_cache(vote, question)
-    if vote <0 then question.down_votes_count += vote else question.up_votes_count += vote end
+    if vote <0 
+      question.down_votes_count += vote 
+    else 
+      question.up_votes_count += vote
+    end
+    question.owner.questions_score += vote
     question.save 
   end
 end

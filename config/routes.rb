@@ -1,6 +1,8 @@
 WithHonours::Application.routes.draw do
   
 
+  resources :searches
+
   devise_for :companies
   devise_for :users
 

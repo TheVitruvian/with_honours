@@ -32,7 +32,7 @@
   %div
     = f.label :university
     %br/
-    = f.select :university_id, University.all.map {|r| [r.name,r.id] } 
+    = f.select :university_id, University.all.map {|r| [r.name,r.id] }
   %div
     = f.label :highest_degree_classification
     %br/
@@ -42,7 +42,7 @@
     %br/
     = f.text_field :degree_title
   %div
-    = f.label "Degree score achieved or predicted"
+    = f.label "Degree score (predicted if you've not graduated)"
     %br/
     = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass })
   %div

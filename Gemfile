@@ -41,10 +41,12 @@ gem 'rmagick'
 gem "fog", "~> 1.3.1"
 gem 'acts_as_votable', '~> 0.8.0'
 
+gem "nifty-generators", :group => :development
+
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
-  # gem 'pry-stack_explorer'
+  
   gem 'annotate'
   gem 'quiet_assets'
   gem 'better_errors'
@@ -72,3 +74,5 @@ end
 
 # To use debugger
 # gem 'debugger'
+
+gem "mocha", :group => :test

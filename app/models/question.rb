@@ -8,12 +8,19 @@ class Question < ActiveRecord::Base
 
   validates :title, presence: true
   
-  after_save :update_hotness
+  before_save :update_hotness
 
   mount_uploader :image, ImageUploader
 
   def update_hotness
-    self.hotness = (self.up_votes_count - self.down_votes_count) / (Time.now - self.created_at)**1.5
+    unless self.created_at == nil
+      if (self.up_votes_count - self.down_votes_count) == 0
+        score = 1 
+      else 
+        score = (self.up_votes_count - self.down_votes_count)
+      end
+      self.hotness = (score) / (Time.now - self.created_at)**1.5
+    end
   end
 
 end

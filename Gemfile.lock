@@ -130,13 +130,17 @@ GEM
       callsite
       rack-contrib
       railties
+    metaclass (0.0.1)
     method_source (0.8.2)
     mime-types (1.25.1)
+    mocha (0.14.0)
+      metaclass (~> 0.0.1)
     multi_json (1.8.2)
     multipart-post (1.2.0)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.7.0)
+    nifty-generators (0.4.6)
     nokogiri (1.5.10)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -263,6 +267,8 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   meta_request
+  mocha
+  nifty-generators
   omniauth
   omniauth-google-oauth2
   omniauth-linkedin-oauth2

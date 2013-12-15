@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131214193151) do
+ActiveRecord::Schema.define(:version => 20131215141718) do
 
   create_table "answer_votes", :force => true do |t|
     t.integer "owner_id"
@@ -97,6 +97,21 @@ ActiveRecord::Schema.define(:version => 20131214193151) do
     t.float    "hotness",          :default => 0.0
   end
 
+  create_table "searches", :force => true do |t|
+    t.string   "keywords"
+    t.integer  "questions_score"
+    t.integer  "answers_score"
+    t.integer  "comments_score"
+    t.string   "university"
+    t.string   "degree_type"
+    t.boolean  "degree_achieved"
+    t.string   "degree_classification"
+    t.integer  "total_score"
+    t.string   "category"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
   create_table "stars", :force => true do |t|
     t.integer "user_id"
     t.integer "question_id"
@@ -109,15 +124,15 @@ ActiveRecord::Schema.define(:version => 20131214193151) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "first_name",             :default => ""
+    t.string   "last_name",              :default => ""
     t.string   "user_name"
-    t.string   "degree_classification"
-    t.string   "degree_score"
-    t.boolean  "degree_achieved"
-    t.text     "profile_picture"
+    t.string   "degree_classification",  :default => ""
+    t.string   "degree_score",           :default => ""
+    t.boolean  "degree_achieved",        :default => false
+    t.text     "profile_picture",        :default => ""
     t.string   "role",                   :default => "user"
-    t.integer  "university_id"
+    t.integer  "university_id",          :default => 0
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
     t.string   "email",                  :default => "",     :null => false
@@ -136,7 +151,11 @@ ActiveRecord::Schema.define(:version => 20131214193151) do
     t.string   "unconfirmed_email"
     t.string   "provider"
     t.string   "uid"
-    t.text     "degree_title"
+    t.text     "degree_title",           :default => ""
+    t.integer  "questions_score",        :default => 0
+    t.integer  "answers_score",          :default => 0
+    t.integer  "comments_score",         :default => 0
+    t.integer  "votes_count",            :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

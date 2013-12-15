@@ -7,15 +7,12 @@
       .questions-break
         %hr
       .questions-score
-        = "Score: #{question.up_votes_count + question.down_votes_count}"
-        = "Answers: #{question.answers.count}"
-        %br
         = link_to "#{question.title}", question
         \-
         = link_to "#{question.owner.user_name}", question.owner
         %br
-        = link_to question.content, question
-        %br
+        = "Score: #{question.up_votes_count + question.down_votes_count}"
+        = "Answers: #{question.answers.count}"
         - if can? [:vote, :edit, :destroy], question
           = link_to "up", vote_question_path(question) + "?vote=1&index=true", method: :put
           = link_to "down", vote_question_path(question) + "?vote=-1&index=true", method: :put

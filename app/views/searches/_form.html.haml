@@ -1,0 +1,47 @@
+= form_for @search do |f|
+  %p
+    = f.label :keywords
+    %br/
+    = f.text_field :keywords
+  %p
+    = f.label :category
+    %br/
+    / to be select
+    = f.text_field :category
+  %p
+    = f.label :questions_score
+    %br/
+    = f.number_field :questions_score
+  %p
+    = f.label :answers_score
+    %br/
+    = f.number_field :answers_score
+  %p
+    = f.label :comments_score
+    %br/
+    = f.number_field :comments_score
+  %p
+    = f.label :university
+    %br/
+    /to be select
+    = f.text_field :university
+  %p
+    = f.label :degree_type
+    %br/
+    /to be select
+    = f.text_field :degree_type
+  %p
+    = f.label :degree_achieved
+    /to be select    
+    %br/
+    = f.check_box :degree_achieved
+  %p
+    = f.label :degree_classification
+    /to be select
+    %br/
+    = f.text_field :degree_classification
+  %p
+    = f.label :total_score
+    %br/
+    = f.number_field :total_score
+  %p= f.submit
