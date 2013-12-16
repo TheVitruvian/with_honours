@@ -132,7 +132,7 @@ class QuestionsController < ApplicationController
     else 
       question.up_votes_count += vote
     end
-    question.owner.questions_score += vote
+    question.owner.questions_score += vote.to_i
     question.owner.save
     question.save 
   end
