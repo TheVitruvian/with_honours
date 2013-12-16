@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def index
-    @questions = Question.order("hotness ASC")
+    @questions = Question.order("hotness DESC")
   end
 
   def new
@@ -122,6 +122,7 @@ class QuestionsController < ApplicationController
       question.up_votes_count -= previous_vote
     end
     question.owner.questions_score -= previous_vote
+    question.owner.save
     question.save
   end
 
@@ -132,6 +133,7 @@ class QuestionsController < ApplicationController
       question.up_votes_count += vote
     end
     question.owner.questions_score += vote
+    question.owner.save
     question.save 
   end
 end

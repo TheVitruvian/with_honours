@@ -35,7 +35,7 @@ gem 'jquery-rails'
 gem 'cancan'
 gem "omniauth"
 gem "omniauth-linkedin-oauth2"
-
+gem "ckeditor"
 gem 'carrierwave'
 gem 'rmagick'
 gem "fog", "~> 1.3.1"

@@ -10,7 +10,7 @@
   .field
     = f.text_field :title, placeholder: "Question title..."
   .field
-    = f.text_area :content, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
+    = f.cktext_area :content, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
   .field
     = f.label :category
     = f.select :category, options_for_select(%w{ Communications Consultancy General HR Marketing Teaching})

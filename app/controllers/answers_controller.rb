@@ -91,11 +91,15 @@ class AnswersController < ApplicationController
 
   def remove_from_answer_cache(previous_vote, answer)
     if previous_vote <0 then answer.down_votes_count -= previous_vote else answer.up_votes_count -= previous_vote end
+    answer.owner.answers_score -= previous_vote
+    answer.owner.save
     answer.save
   end
 
   def add_to_answer_cache(vote, answer)
     if vote <0 then answer.down_votes_count += vote else answer.up_votes_count += vote end
+    answer.owner.answers_score += vote
+    answer.owner.save
     answer.save 
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131215141718) do
+ActiveRecord::Schema.define(:version => 20131216094009) do
 
   create_table "answer_votes", :force => true do |t|
     t.integer "owner_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20131215141718) do
   create_table "answers", :force => true do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.string   "content"
+    t.text     "content"
     t.boolean  "flag",             :default => false
     t.integer  "question_id"
     t.datetime "created_at",                          :null => false
@@ -70,6 +70,10 @@ ActiveRecord::Schema.define(:version => 20131215141718) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "questions_score",        :default => 0
+    t.integer  "answers_score",          :default => 0
+    t.integer  "comments_score",         :default => 0
+    t.integer  "votes_count",            :default => 0
   end
 
   add_index "companies", ["email"], :name => "index_companies_on_email", :unique => true
@@ -156,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20131215141718) do
     t.integer  "answers_score",          :default => 0
     t.integer  "comments_score",         :default => 0
     t.integer  "votes_count",            :default => 0
+    t.text     "biography",              :default => ""
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

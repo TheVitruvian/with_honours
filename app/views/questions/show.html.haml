@@ -4,7 +4,7 @@
   %body
     %div
       %h3= "#{@question.title}"
-      = "#{@question.content} -" 
+      = raw "#{@question.content}" 
       = link_to "#{@question.owner.user_name}", @question.owner
       %br
       = "Score: #{@question.up_votes_count + @question.down_votes_count}"
@@ -17,13 +17,13 @@
         = link_to 'Delete', question_path(@question), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
     = form_for [@question, @question.answers.build] do |f|
-      %p= f.text_area :content, :size => '50x5', placeholder: "Have a good answer...?"
+      %p= f.cktext_area :content, :ckeditor => {:uiColor => "#AADC6E", :toolbar => "mini", :width=>'400px', :height=>'200px', placeholder: "Have a good answer...?"}
       %p= f.submit "Post answer", disabled: false
 
     %ul#answers
       - @answers.each do |answer|
         %li
-          = "#{answer.content} - "
+          = raw "#{answer.content} - "
           = link_to "#{answer.owner.user_name}", answer.owner
           %br/
           = "Score: #{answer.up_votes_count + answer.down_votes_count}"
@@ -35,7 +35,7 @@
           - if can? :destroy, answer
             = link_to 'Delete', question_answer_path(@question, answer), :method => :delete, :data => { :confirm => 'Are you sure?' }
             %ul
-              - answer.comments.each do |comment|
+              - answer.comments.order(:up_votes_count, :down_votes_count).reverse.each do |comment|
                 %li
                   = "#{comment.content} - "
                   = link_to "#{comment.owner.user_name}", comment.owner

@@ -93,12 +93,15 @@ class CommentsController < ApplicationController
 
   def remove_from_comment_cache(previous_vote, comment)
     if previous_vote <0 then comment.down_votes_count -= previous_vote else comment.up_votes_count -= previous_vote end
+    comment.owner.comments_score -= previous_vote
+    comment.owner.save
     comment.save
   end
 
   def add_to_comment_cache(vote, comment)
     if vote <0 then comment.down_votes_count += vote else comment.up_votes_count += vote end
+    comment.owner.comments_score += vote
+    comment.owner.save
     comment.save 
   end
-
 end

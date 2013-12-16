@@ -45,7 +45,7 @@ class InitialSetupOfUsersQuestionsAnswersCommentsCompaniesAndUniversitys < Activ
 
     create_table :answers do |t|
       t.references :owner, polymorphic: true
-      t.string :content
+      t.text :content
       t.boolean :flag, default: false
       t.belongs_to :question
       t.timestamps

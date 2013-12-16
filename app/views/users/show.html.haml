@@ -7,11 +7,11 @@
   = @user.first_name
   = @user.last_name
 %br/
-= "Questions score: #{@question_up_score - @question_down_score}"
+= "Questions score: #{@user.questions_score}"
 %br/
-= "Answers score: #{@answer_up_score - @answer_down_score}"
+= "Answers score: #{@user.answers_score}"
 %br/
-= "Comments score: #{@comment_up_score - @comment_down_score}"
+= "Comments score: #{@user.comments_score}"
 %br/
 = "Voting score: #{@votes}"
 -if @user.university.present?

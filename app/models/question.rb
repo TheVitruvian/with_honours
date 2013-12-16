@@ -14,12 +14,7 @@ class Question < ActiveRecord::Base
 
   def update_hotness
     unless self.created_at == nil
-      if (self.up_votes_count - self.down_votes_count) == 0
-        score = 1 
-      else 
-        score = (self.up_votes_count - self.down_votes_count)
-      end
-      self.hotness = (score) / (Time.now - self.created_at)**1.5
+      self.hotness = (self.up_votes_count + self.down_votes_count) / (Time.now - self.created_at)**1.5
     end
   end
 
