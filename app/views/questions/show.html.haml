@@ -24,35 +24,35 @@
 
     %ul.answers
       - @answers.each do |answer|
-        .questions-score
+        .answers-score
           %li
             = raw "#{answer.content} - "
             = link_to "#{answer.owner.user_name}", answer.owner
             %br/
             Score:
-            %span.score= answer.up_votes_count + answer.down_votes_count
+            %span.answer-score= answer.up_votes_count + answer.down_votes_count
             - if can? :vote, answer
               -if @answer_up_votes_cast.include? answer.id
-                %strong= link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'vote-link vote-up voted-on'
+                %strong= link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up answer-voted-on'
               -else 
-                = link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'vote-link vote-up'
+                = link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up'
               -if @answer_down_votes_cast.include? answer.id
-                %strong= link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'vote-link vote-down voted-on'
+                %strong= link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down answer-voted-on'
               -else
-                = link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'vote-link vote-down'
+                = link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down'
             - if can? :edit, answer
               = link_to 'Edit', edit_question_answer_path(@question, answer)
             - if can? :destroy, answer
               = link_to 'Delete', question_answer_path(@question, answer), :method => :delete, :data => { :confirm => 'Are you sure?' }
               %ul.comments
-                - answer.comments.order(:created_at.each do |comment|
+                - answer.comments.order(:created_at).each do |comment|
                   .comments-score
                     %li
                       = "#{comment.content} - "
                       = link_to "#{comment.owner.user_name}", comment.owner
                       %br/
                       Score: 
-                      %span.score= comment.up_votes_count + comment.down_votes_count
+                      %span.comment-score= comment.up_votes_count + comment.down_votes_count
                       - if can? :vote, comment
                         -if @comment_up_votes_cast.include? comment.id
                           %strong= link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up comment-voted-on'

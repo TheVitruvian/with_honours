@@ -23,6 +23,7 @@ class CommentsController < ApplicationController
   end
 
   def create
+    @question = Question.find(params[:question_id])
     @comment = Comment.new(params[:comment])
     authorize! :create, Comment
     @comment.answer_id = Answer.find(params[:answer_id]).id
@@ -31,7 +32,7 @@ class CommentsController < ApplicationController
     @comment.owner_type = current_agent.class.to_s
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to Question.find(params[:question_id]), notice: 'Comment was successfully created.' }
+        format.html { redirect_to @question, notice: 'Comment was successfully created.' }
       else
         format.html { redirect_to @question, alert: 'Comment cannot be blank.' }
         format.json { render json: @question.errors, status: :unprocessable_entity }
