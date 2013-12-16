@@ -6,6 +6,19 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.order("hotness DESC")
+    @up_votes_cast = []
+    @down_votes_cast = []
+
+    if current_agent
+      current_agent.question_votes.each do |id|
+        if id.vote > 0
+          @up_votes_cast <<  id.question_id  
+        else
+          @down_votes_cast << id.question_id
+        end
+      end
+    end
+    @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_agent.role == "mentor" 
   end
 
   def new
@@ -16,9 +29,38 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answers = @question.answers.order(:up_votes_count, :down_votes_count).reverse
+    @up_votes_cast = []
+    @down_votes_cast = []
+    @answer_up_votes_cast = []
+    @answer_down_votes_cast = []
+    @comment_up_votes_cast = []
+    @comment_down_votes_cast = []
 
-    authorize! :read, @question
+    if current_agent
+      current_agent.question_votes.each do |id|
+        if id.vote > 0
+          @up_votes_cast <<  id.question_id  
+        else
+          @down_votes_cast << id.question_id
+        end
+      end
+      current_agent.answer_votes.each do |id|
+        if id.vote > 0
+          @answer_up_votes_cast <<  id.answer_id  
+        else
+          @answer_down_votes_cast << id.answer_id
+        end
+      end
+      current_agent.comment_votes.each do |id|
+        if id.vote > 0
+          @comment_up_votes_cast <<  id.comment_id  
+        else
+          @comment_down_votes_cast << id.comment_id
+        end
+      end
+    end
     @current_agent = current_agent
+    @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_agent.role == "mentor" 
   end
 
   def create

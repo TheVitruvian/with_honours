@@ -17,6 +17,10 @@ WithHonours::Application.routes.draw do
   authenticated :user do
     root :to => "questions#index"
   end
+  
+  authenticated :company do
+    root :to => "questions#index"
+  end
 
   root :to => "pages#home"
 

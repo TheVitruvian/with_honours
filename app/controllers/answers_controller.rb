@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-
+  WEIGHTED_SCORE = 20
   before_filter :authenticate_user_or_company
 
   def edit
@@ -49,16 +49,16 @@ class AnswersController < ApplicationController
 
   def vote
     #check if already voted
-    previous_vote_check = AnswerVote.where("owner_id=? AND owner_type=?", current_agent.id, current_agent.class.to_s)[0]
     answer = Answer.find(params[:id])
-    
+    previous_vote_check = AnswerVote.where("owner_id=? AND owner_type=? AND answer_id=?", current_agent.id, current_agent.class.to_s, answer.id)[0]
+
     # alter vote according to who is voting 
     if params[:vote] == "up" 
       vote = 1
     else
       vote = -1
     end
-
+    
     vote = WEIGHTED_SCORE*(vote) if current_agent.class.to_s == "Company" || current_agent.role == "mentor"
 
     #alter make or destroy record

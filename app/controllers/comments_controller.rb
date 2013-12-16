@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  
+  WEIGHTED_SCORE = 20  
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def edit
@@ -51,9 +51,9 @@ class CommentsController < ApplicationController
 
   def vote
     #check if already voted
-    previous_vote_check = CommentVote.where("owner_id=? AND owner_type=?", current_agent.id, current_agent.class.to_s)[0]
     comment = Comment.find(params[:id])
-    
+    previous_vote_check = CommentVote.where("owner_id=? AND owner_type=? AND comment_id=?", current_agent.id, current_agent.class.to_s, comment.id)[0]
+
     # alter vote according to who is voting 
     if params[:vote] == "up" 
       vote = 1
