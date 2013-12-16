@@ -9,13 +9,11 @@
   #post-input
   .field
     = f.text_field :title, placeholder: "Question title..."
-  .field
-    = f.cktext_area :content, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
-  .field
     = f.label :category
     = f.select :category, options_for_select(%w{ Communications Consultancy General HR Marketing Teaching})
-  .field
     = f.label :image
     = f.file_field :image
+  .field
+    = f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
   .actions
     %input{:type => "submit", :value => "Submit", :class => "button", :id => "post_submit", :content => :content, :name => 'submit'}

@@ -10,37 +10,39 @@ class Search < ActiveRecord::Base
     User.find(:all, :conditions => conditions)
   end
 
+private
+
   def keyword_conditions
-    ["user.name LIKE ?", "%#{keywords}%"] unless keywords.blank?
+    ["users.user_name LIKE ?", "%#{keywords}%"] unless keywords.blank?
   end
 
   def minimum_question_score_conditions
-    ["user.questions_score >= ?", questions_score] unless questions_score.blank?
+    ["users.questions_score >= ?", questions_score] unless questions_score.blank?
   end
 
-  def minimum_answer_score_conditions
-    ["user.answers_score >= ?", answers_score] unless answers_score.blank?
-  end
+  # def minimum_answer_score_conditions
+  #   ["users.answers_score >= ?", answers_score] unless answers_score.blank?
+  # end
 
-  def minimum_comment_score_conditions
-    ["user.comments_score >= ?", comments_score] unless comments_score.blank?
-  end
+  # def minimum_comment_score_conditions
+  #   ["users.comments_score >= ?", comments_score] unless comments_score.blank?
+  # end
 
-  def universities_conditions
-    ["user.university WHERE ID IN ?", university] unless university.blank?
-  end
+  # def universities_conditions
+  #   ["users.university WHERE ID IN ?", university] unless university.blank?
+  # end
 
-  def degree_type_conditions
-    ["user.degree_type WHERE degree_type IN ?", degree_type] unless degree_type.blank?
-  end
+  # def degree_type_conditions
+  #   ["users.degree_type WHERE degree_type IN ?", degree_type] unless degree_type.blank?
+  # end
 
-  def degree_achieved_conditions
-    ["user.degree_achieved WHERE degree_achieved = ?", degree_achieved] unless degree_achieved.blank?
-  end
+  # def degree_achieved_conditions
+  #   ["users.degree_achieved WHERE degree_achieved = ?", degree_achieved] unless degree_achieved.blank?
+  # end
 
-  def degree_classification_conditions
-    ["user.degree_classification WHERE degree_classification IN ?", degree_classification] unless degree_classification.blank?
-  end
+  # def degree_classification_conditions
+  #   ["users.degree_classification WHERE degree_classification IN ?", degree_classification] unless degree_classification.blank?
+  # end
 
   def conditions
     [conditions_clauses.join(' AND '), *conditions_options]

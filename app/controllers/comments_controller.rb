@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  
+  WEIGHTED_SCORE = 20  
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def edit
@@ -23,6 +23,7 @@ class CommentsController < ApplicationController
   end
 
   def create
+    @question = Question.find(params[:question_id])
     @comment = Comment.new(params[:comment])
     authorize! :create, Comment
     @comment.answer_id = Answer.find(params[:answer_id]).id
@@ -31,7 +32,7 @@ class CommentsController < ApplicationController
     @comment.owner_type = current_agent.class.to_s
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to Question.find(params[:question_id]), notice: 'Comment was successfully created.' }
+        format.html { redirect_to @question, notice: 'Comment was successfully created.' }
       else
         format.html { redirect_to @question, alert: 'Comment cannot be blank.' }
         format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -51,11 +52,17 @@ class CommentsController < ApplicationController
 
   def vote
     #check if already voted
-    previous_vote_check = CommentVote.where("owner_id=? AND owner_type=?", current_agent.id, current_agent.class.to_s)[0]
     comment = Comment.find(params[:id])
-    
+    previous_vote_check = CommentVote.where("owner_id=? AND owner_type=? AND comment_id=?", current_agent.id, current_agent.class.to_s, comment.id)[0]
+
     # alter vote according to who is voting 
-    vote = WEIGHTED_SCORE*(params[:vote].to_i) if current_agent.class.to_s == "Company" || current_agent.role == "mentor" else vote = params[:vote].to_i
+    if params[:vote] == "up" 
+      vote = 1
+    else
+      vote = -1
+    end
+
+    vote = WEIGHTED_SCORE*(vote) if current_agent.class.to_s == "Company" || current_agent.role == "mentor"
 
     #alter make or destroy record
     if previous_vote_check.present?
