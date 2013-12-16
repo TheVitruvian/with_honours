@@ -69,11 +69,16 @@ class QuestionsController < ApplicationController
 
   def vote
     #check if already voted
-    
     question = Question.find(params[:id])
     previous_vote_check = QuestionVote.where("owner_id=? AND owner_type=? AND question_id=?", current_agent.id, current_agent.class.to_s, question.id)[0]
     # alter vote according to who is voting  
-    vote = WEIGHTED_SCORE*(params[:vote].to_i) if current_agent.class.to_s == "Company" || current_agent.role == "mentor" else vote = params[:vote].to_i
+    if params[:vote] == "up" 
+      vote = 1
+    else
+      vote = -1
+    end
+
+    vote = WEIGHTED_SCORE*(vote) if current_agent.class.to_s == "Company" || current_agent.role == "mentor"
 
     #alter make or destroy record
     if previous_vote_check.present?
@@ -84,7 +89,6 @@ class QuestionsController < ApplicationController
     if previous_vote_check.blank?
       make_new_question_vote(question, vote)
     end
-
     # return to index or show
     if !!params[:index]
       redirect_to root_url

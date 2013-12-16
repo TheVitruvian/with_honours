@@ -53,7 +53,13 @@ class AnswersController < ApplicationController
     answer = Answer.find(params[:id])
     
     # alter vote according to who is voting 
-    vote = WEIGHTED_SCORE*(params[:vote].to_i) if current_agent.class.to_s == "Company" || current_agent.role == "mentor" else vote = params[:vote].to_i
+    if params[:vote] == "up" 
+      vote = 1
+    else
+      vote = -1
+    end
+
+    vote = WEIGHTED_SCORE*(vote) if current_agent.class.to_s == "Company" || current_agent.role == "mentor"
 
     #alter make or destroy record
     if previous_vote_check.present?

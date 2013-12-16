@@ -4,21 +4,17 @@
   %body
     %div
       %h3= "#{@question.title}"
-      = raw "#{@question.content}" 
+      = raw "#{@question.content}"
       = link_to "#{@question.owner.user_name}", @question.owner
       %br
       = "Score: #{@question.up_votes_count + @question.down_votes_count}"
       - if can? :vote, @question
-        = link_to "Up vote", vote_question_path(@question) + "?vote=1", method: :put
-        = link_to "Down vote", vote_question_path(@question) + "?vote=-1", method: :put
+        = link_to "Up vote", vote_question_path(@question, vote: "up"), method: :put
+        = link_to "Down vote", vote_question_path(@question, vote: "down"), method: :put
       - if can? :edit, @question
         = link_to 'Edit', edit_question_path(@question)
       - if can? :destroy, @question
         = link_to 'Delete', question_path(@question), :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-    = form_for [@question, @question.answers.build] do |f|
-      %p= f.cktext_area :content, :ckeditor => {:uiColor => "#AADC6E", :toolbar => "mini", :width=>'400px', :height=>'200px', placeholder: "Have a good answer...?"}
-      %p= f.submit "Post answer", disabled: false
 
     %ul#answers
       - @answers.each do |answer|
@@ -28,8 +24,8 @@
           %br/
           = "Score: #{answer.up_votes_count + answer.down_votes_count}"
           - if can? :vote, answer
-            = link_to "Up vote", vote_question_answer_path(@question, answer) + "?vote=1", method: :put
-            = link_to "Down vote", vote_question_answer_path(@question, answer) + "?vote=-1", method: :put
+            = link_to "Up vote", vote_question_answer_path(@question, vote: "up"), method: :put
+            = link_to "Down vote", vote_question_answer_path(@question, vote: "down"), method: :put
           - if can? :edit, answer
             = link_to 'Edit', edit_question_answer_path(@question, answer)
           - if can? :destroy, answer
@@ -42,8 +38,8 @@
                   %br/
                   = "Score: #{comment.up_votes_count + comment.down_votes_count}"
                   - if can? :vote, comment
-                    = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment) + "?vote=1", method: :put
-                    = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment) + "?vote=-1", method: :put
+                    = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put
+                    = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put
                   - if can? :edit, comment
                     = link_to 'Edit', edit_question_answer_comment_path(@question, answer, comment)
                   - if can? :destroy, comment
@@ -52,6 +48,8 @@
         = form_for [@question, answer, answer.comments.build] do |f|
           %p= f.text_field :content, placeholder: "Comment..."
           %p= f.submit "Post comment", disabled: false
-
+    = form_for [@question, @question.answers.build] do |f|
+      %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?"
+      %p= f.submit "Post answer", disabled: false
 
       %hr

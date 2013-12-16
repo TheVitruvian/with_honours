@@ -1,5 +1,3 @@
-- current_agent = (current_user) || (current_company)
-
 %section.container
   .top-questions-container
     %h2 Top Questions
@@ -11,11 +9,14 @@
         \-
         = link_to "#{question.owner.user_name}", question.owner
         %br
-        = "Score: #{question.up_votes_count + question.down_votes_count}"
-        = "Answers: #{question.answers.count}"
-        - if can? [:vote, :edit, :destroy], question
-          = link_to "up", vote_question_path(question) + "?vote=1&index=true", method: :put
-          = link_to "down", vote_question_path(question) + "?vote=-1&index=true", method: :put
-          = link_to 'Edit', edit_question_path(question)
+        Score:
+        %span.score= question.up_votes_count + question.down_votes_count
+        Answers:
+        %span.count= question.answers.count
+        - if can? :vote, question
+          = link_to "up", vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up', method: :put
+          = link_to "down", vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down'
+        - if can? [:edit, :destroy], question
+          = link_to 'Edit', edit_question_path(question) 
           = link_to 'Delete', question_path(question), method: :delete, :data => { :confirm => 'Are you sure?' }
 
