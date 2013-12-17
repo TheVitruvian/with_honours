@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require ckeditor-jquery
 //= require_tree .
+//= require history
 //= require ajax_pagination

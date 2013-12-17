@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
-        format.html { redirect_to Question.find(params[:question_id]), notice: 'Comment was successfully updated.' }
+        format.html { redirect_to Question.find(params[:question_id]), notice: 'Answer was successfully updated.' }
       else
         format.html { render action: "edit" }
       end

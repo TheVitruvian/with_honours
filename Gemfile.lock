@@ -277,6 +277,7 @@ DEPENDENCIES
   faker
   fog (~> 1.3.1)
   haml-rails
+  jquery-historyjs
   jquery-rails
   meta_request
   mocha

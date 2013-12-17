@@ -1,0 +1,6 @@
+%h2 Search results
+%ul
+- @questions.each do |question|
+  %li 
+    %ul= link_to question.title, question 
+    %ul= truncate(question.content, length: 300, separator: " ")

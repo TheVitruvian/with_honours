@@ -1,5 +1,5 @@
 -if @user.profile_picture.present?
-  = @user.profile_picture
+  = image_tag @user.profile_picture
   %br/
 = @user.user_name
 -if current_agent = @user
