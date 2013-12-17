@@ -1,5 +1,5 @@
 class Search < ActiveRecord::Base
-  attr_accessible :keywords, :question_score, :answer_score, :comments_score, :university, :degree_type, :degree_achieved, :degree_classification, :total_score, :category, :questions_score, :answers_score
+  attr_accessible :keywords, :question_score, :answer_score, :comments_score, :university, :degree_type, :degree_achieved, :degree_classification, :total_score, :category, :questions_score, :answers_score, :degree_score
 
 
   def users
@@ -33,7 +33,7 @@ private
   end
 
   def degree_type_conditions
-    ["users.degree_type WHERE degree_type IN ?", degree_type] unless degree_type.blank?
+    ["users.degree_score WHERE degree_score IN ?", degree_score] unless degree_score.blank?
   end
 
   def degree_achieved_conditions

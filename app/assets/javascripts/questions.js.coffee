@@ -157,8 +157,7 @@ $ ->
     $el = $(this)
     $container = $el.parent().parent()
     $commentButton = $container.find('.comment_submit')
-    debugger
-    if $el.length < 9
+    if $el.val().length < 9
       $commentButton.prop('disabled', true)
     else
       $commentButton.prop('disabled', false)
@@ -166,11 +165,20 @@ $ ->
 
   setup_editor = ->
     check_for_answer()
+    checkCommentLength()
+    
     CKEDITOR.instances.answer.on 'key', check_for_answer
 
   CKEDITOR.on 'instanceReady', setup_editor
   $("#question_title").on 'keyup', checkTitleLength
-  $("[class^='comment']").keyup checkCommentLength
+  $(".comment_content").keyup checkCommentLength
+
+  $(".nav-bar").addClass('animated bounceOutLeft')
+
+
+  window.onload = checkTitleLength()
+  window.onload = checkCommentLength
+
 
 
 

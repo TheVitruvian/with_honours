@@ -1,5 +1,6 @@
 %h1 Editing answer
 
 = form_for [@question, @answer] do |f|
-  %p= f.text_area :content, :size => '50x5', placeholder: "Have a good answer...?"
-  %p= f.submit "Post answer", disabled: false
+      %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer"
+      = f.submit "Post answer", disabled: true, id: "answer-submit"
+      Answers must be 10 characters long

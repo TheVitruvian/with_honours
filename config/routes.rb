@@ -2,6 +2,7 @@ WithHonours::Application.routes.draw do
   
 
   resources :searches
+  resources :basic_searches, only: [:create]
 
   devise_for :companies
   devise_for :users
@@ -13,6 +14,10 @@ WithHonours::Application.routes.draw do
   devise_scope :company do
     resources :companies
   end
+
+  get '/HR', to: 'questions#index'
+  get '/Comms', to: 'questions#index'
+  get '/Consulting', to: 'questions#index'
 
   authenticated :user do
     root :to => "questions#index"
@@ -39,8 +44,7 @@ WithHonours::Application.routes.draw do
       end
     end
   end
-  resources :searches, only: [:create]
-
+  
   # resources :messages, only: [:new, :create]
 end
 

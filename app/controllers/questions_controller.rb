@@ -5,9 +5,32 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def index
-    @questions = Question.order("hotness DESC")
+    page = params[:page] || 1
+    per_page = 20
     @up_votes_cast = []
     @down_votes_cast = []
+    @current_agent = current_agent
+    @votes = @current_agent.question_votes.count + @current_agent.answer_votes.count + @current_agent.comment_votes.count if current_agent
+
+    uri = URI("#{request.original_url}").path
+
+    case uri
+    when "/HR"
+      @questions = Question.paginate(page: page, per_page: per_page).where(category: 'HR').order('hotness DESC')
+      @category = "HR"
+    when "/Comms"
+      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Communications')
+      @category = "Comms"
+    when "/Consulting"
+      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Consultancy')
+      @category = "Consulting"
+    when "/Sales"
+      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Sales')
+      @category = "Sales"
+    else
+      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC')
+      @category = "Top Questions"
+    end
 
     if current_agent
       current_agent.question_votes.each do |id|
@@ -18,7 +41,11 @@ class QuestionsController < ApplicationController
         end
       end
     end
-    @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_agent.role == "mentor" 
+    @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_user && current_user.role == "mentor" 
+    respond_to do |format|
+      format.html # index.html.erb
+      ajax_respond format, :section_id => "page"
+    end
   end
 
   def new
@@ -60,7 +87,7 @@ class QuestionsController < ApplicationController
       end
     end
     @current_agent = current_agent
-    @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_agent.role == "mentor" 
+    @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_user && current_agent.role == "mentor" 
   end
 
   def create

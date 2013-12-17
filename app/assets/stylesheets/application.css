@@ -10,4 +10,33 @@
  *
  *= require_self
  *= require_tree .
+ *= require ajax_pagination
  */
+
+
+* {
+  font-family: 'Lora';
+}
+
+.body{
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.search{
+  float: right
+}
+
+.h2{
+  font-family: 'Lora';
+}
+
+.logo{
+  font-family: 'Lobster', italic;
+  font-size: 3em;
+}
+
+.right{
+  float: right;
+  padding-top: 2em;
+}
