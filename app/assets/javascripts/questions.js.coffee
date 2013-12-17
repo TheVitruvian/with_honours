@@ -1,4 +1,5 @@
 $ ->
+
   $(".vote-link").click (e) ->
     $el = $(this)
     h = $el.attr('href')
@@ -134,43 +135,46 @@ $ ->
 
     false
 
-    # if (@upvoters.include? current_user.id) && (params[:score] == "1") then
-    #   @post.score -= 1 
-    #   @upvoters.delete(current_user.id)
-    # elsif (@upvoters.include? current_user.id) && (params[:score] == "-1") then
-    #   @post.score -= 2
-    #   @upvoters.delete(current_user.id)
-    #   @downvoters.push(current_user.id)
-    # elsif (@downvoters.include? current_user.id) && (params[:score] == "1") then
-    #   @post.score += 2
-    #   @downvoters.delete(current_user.id)
-    #   @upvoters.push(current_user.id)
-    # elsif (@downvoters.include? current_user.id) && (params[:score] == "-1") then
-    #   @post.score += 1
-    #   @downvoters.delete(current_user.id)
-    # elsif !(@downvoters.include? current_user.id) && !(@upvoters.include? current_user.id) then
-    #   case params[:score]
-    #   when "-1"
-    #     @post.score -= 1
-    #     @downvoters << current_user.id
-    #   when "1"
-    #     @post.score += 1
-    #     @upvoters << current_user.id
-    #   end
+  getValue = (id) -> $(id).val()
 
-     
-#   ajax_vote = ->
-#     url = $(this).attr("#vote")
-#     $.ajax ({
-#       type: "PUT",
-#       url: url,
-#       })
+  checkTitleLength = ->
+    title = getValue("#question_title")
+    if title.length > 0
+      $("#question_submit").prop('disabled', false)
+    else
+      $("#question_submit").prop('disabled', true)
 
 
-#     $('.atleta').click(function(e) {
-#       e.preventDefault();
-#       $('.atleta').removeClass('atleta_atual');
-#       $(this).addClass('atleta_atual');
-#       var h = $("a",this).attr('href');
-#       alert(h);
-# });
+  check_for_answer = ->
+    answer = CKEDITOR.instances.answer.getData().length
+    if answer > 49
+      $("#answer-submit").prop('disabled', false)
+    else
+      $("#answer-submit").prop('disabled', true)
+
+
+  checkCommentLength = ->
+    $el = $(this)
+    $container = $el.parent().parent()
+    $commentButton = $container.find('.comment_submit')
+    debugger
+    if $el.length < 9
+      $commentButton.prop('disabled', true)
+    else
+      $commentButton.prop('disabled', false)
+
+
+  setup_editor = ->
+    check_for_answer()
+    CKEDITOR.instances.answer.on 'key', check_for_answer
+
+  CKEDITOR.on 'instanceReady', setup_editor
+  $("#question_title").on 'keyup', checkTitleLength
+  $("[class^='comment']").keyup checkCommentLength
+
+
+
+
+
+
+

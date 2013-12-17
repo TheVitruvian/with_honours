@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20131216094009) do
     t.integer  "answers_score"
     t.integer  "comments_score"
     t.string   "university"
-    t.string   "degree_type"
+    t.string   "degree_score"
     t.boolean  "degree_achieved"
     t.string   "degree_classification"
     t.integer  "total_score"
