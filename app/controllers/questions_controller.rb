@@ -5,9 +5,14 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def index
-    @questions = Question.order("hotness DESC")
+    page = params[:page] || 1
+    per_page = 5
+    #@questions = Question.order("hotness DESC")
     @up_votes_cast = []
     @down_votes_cast = []
+
+    @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').all
+
 
     if current_agent
       current_agent.question_votes.each do |id|

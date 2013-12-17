@@ -24,6 +24,7 @@ gem 'pg'
 
 
 gem "will_paginate", "~> 3.0"
+gem 'ajax_pagination'
 gem "haml-rails"
 gem 'pry-rails'
 gem 'devise'
