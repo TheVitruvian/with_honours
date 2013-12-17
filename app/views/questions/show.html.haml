@@ -10,11 +10,11 @@
       Score:
       %span.score= @question.up_votes_count + @question.down_votes_count
       -if @up_votes_cast.include? @question.id
-        %strong= link_to "up", vote_question_path(@question, vote: "up", index: "true"), class: 'vote-link vote-up voted-on', method: :put
+        = link_to "up", vote_question_path(@question, vote: "up", index: "true"), class: 'vote-link vote-up voted-on', method: :put
       -else
         = link_to "up", vote_question_path(@question, vote: "up", index: "true"), class: 'vote-link vote-up', method: :put
       -if @down_votes_cast.include? @question.id
-        %strong= link_to "down", vote_question_path(@question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down voted-on'
+        = link_to "down", vote_question_path(@question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down voted-on'
       -else
         = link_to "down", vote_question_path(@question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down'
       - if can? :edit, @question
@@ -31,15 +31,14 @@
             %br/
             Score:
             %span.answer-score= answer.up_votes_count + answer.down_votes_count
-            - if can? :vote, answer
-              -if @answer_up_votes_cast.include? answer.id
-                %strong= link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up answer-voted-on'
-              -else 
-                = link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up'
-              -if @answer_down_votes_cast.include? answer.id
-                %strong= link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down answer-voted-on'
-              -else
-                = link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down'
+            -if @answer_up_votes_cast.include? answer.id
+              = link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up answer-voted-on'
+            -else 
+              = link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up'
+            -if @answer_down_votes_cast.include? answer.id
+              = link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down answer-voted-on'
+            -else
+              = link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down'
             - if can? :edit, answer
               = link_to 'Edit', edit_question_answer_path(@question, answer)
             - if can? :destroy, answer
@@ -53,24 +52,24 @@
                       %br/
                       Score: 
                       %span.comment-score= comment.up_votes_count + comment.down_votes_count
-                      - if can? :vote, comment
-                        -if @comment_up_votes_cast.include? comment.id
-                          %strong= link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up comment-voted-on'
-                        -else
-                          = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up'
-                        -if @comment_down_votes_cast.include? comment.id
-                          %strong= link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down comment-voted-on'
-                        -else
-                          = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down'
+                      -if @comment_up_votes_cast.include? comment.id
+                        = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up comment-voted-on'
+                      -else
+                        = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up'
+                      -if @comment_down_votes_cast.include? comment.id
+                        = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down comment-voted-on'
+                      -else
+                        = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down'
                       - if can? :edit, comment
                         = link_to 'Edit', edit_question_answer_comment_path(@question, answer, comment)
                       - if can? :destroy, comment
                         = link_to 'Delete', question_answer_comment_path(@question, answer, comment), :method => :delete, :data => { :confirm => 'Are you sure?' }
                 = form_for [@question, answer, answer.comments.build] do |f|
-                  %p= f.text_field :content, placeholder: "Comment..."
-                  %p= f.submit "Post comment"
+                  %p= f.text_field :content, placeholder: "Comment...", class: "comment_content"
+                  %p= f.submit "Post comment", class: "comment_submit", disabled: true
     = form_for [@question, @question.answers.build] do |f|
-      %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?"
-      %p= f.submit "Post answer", disabled: false
+      %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer"
+      = f.submit "Post answer", disabled: true, id: "answer-submit"
+      Answers must be 50 characters long
 
       %hr

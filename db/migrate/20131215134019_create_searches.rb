@@ -6,12 +6,13 @@ class CreateSearches < ActiveRecord::Migration
       t.integer :answers_score
       t.integer :comments_score
       t.string :university
-      t.string :degree_type
+      t.string :degree_score
       t.boolean :degree_achieved
       t.string :degree_classification
       t.integer :total_score
       t.string :category
       t.timestamps
+
     end
   end
 

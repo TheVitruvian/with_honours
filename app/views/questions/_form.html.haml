@@ -16,4 +16,4 @@
   .field
     = f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
   .actions
-    %input{:type => "submit", :value => "Submit", :class => "button", :id => "post_submit", :content => :content, :name => 'submit'}
+    %input{:type => "submit", :value => "Submit", :class => "button", :id => "question_submit", :content => :content, disabled: true}

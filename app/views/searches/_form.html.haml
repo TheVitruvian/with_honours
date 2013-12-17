@@ -6,7 +6,6 @@
   %p
     = f.label :category
     %br/
-    / to be select
     = f.text_field :category
   %p
     = f.label :questions_score
@@ -21,23 +20,19 @@
     %br/
     = f.number_field :comments_score
   %p
-    = f.label :university
+    = f.label "University(ies) - hold ctrl/cmd to select multiple"
     %br/
-    /to be select
-    = f.text_field :university
+    = f.select :university, University.all.map {|r| [r.name,r.id] }, {},{:multiple => true, size: 20 }
   %p
-    = f.label :degree_type
+    = f.label :degree_score
     %br/
-    /to be select
-    = f.text_field :degree_type
+    = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass }),{}, {multiple: true, size: 5}
   %p
     = f.label :degree_achieved
-    /to be select    
     %br/
     = f.check_box :degree_achieved
   %p
     = f.label :degree_classification
-    /to be select
     %br/
-    = f.text_field :degree_classification
+    = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD }),{},{ multiple: true, size: 8}
   %p= f.submit
