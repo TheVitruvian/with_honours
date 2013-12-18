@@ -74,6 +74,7 @@ user4.questions << question3
 user5.questions << question5
 user5.questions << question6
 user5.questions << question7
+user3.questions << question8
 
 user3.answers << answer1
 user2.answers << answer2
