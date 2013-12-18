@@ -1,32 +1,29 @@
-.row
+.row.animated.fadeInDown
   %iframe.col-md-8{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "430", :src => "http://www.youtube.com/embed/#{@video_id}", :title => "YouTube video player", :width => "640"}
 
-  .col-md-4 
+  .col-md-4
     .button
       =button_to "Have a look around", questions_path, :method => :get
     %h4 Student Quick Sign up
-    %form.form
-      = form_for("user", :url => user_registration_path) do |f|
-        .form-group
-          = f.text_field :user_name, placeholder: "Username"
-        .form-group
-          = f.text_field :email, placeholder: "Email"
-        .form-group
-          = f.password_field :password, placeholder: "Password"
-        .form-group
-          = f.password_field :password_confirmation, placeholder: "Password Confirm"
-        .form-group
-          = f.submit 'Sign up'
+    = form_for("user", :url => user_registration_path) do |f|
+      .form-group
+      = f.text_field :user_name, placeholder: "Username"
+      .form-group
+      = f.text_field :email, placeholder: "Email"
+      .form-group
+      = f.password_field :password, placeholder: "Password"
+      .form-group
+      = f.password_field :password_confirmation, placeholder: "Password Confirm"
+      .form-group
+      = f.submit 'Sign up'
     
     %h4 Student Quick Sign in
-    %form.form
-      = form_for("user", :url => user_session_path) do |f|
-        .form-group
-          = f.text_field :email, placeholder: "Email"
-        .form-group
-          = f.password_field :password, placeholder: "Password"
-        .checkbox
-          = f.check_box :remember_me
-          = f.label :remember_me
-        .form-group
-          = f.submit 'Sign in'
+    = form_for("user", :url => user_session_path) do |f|
+      .form-group
+      = f.text_field :email, placeholder: "Email"
+      .form-group
+      = f.password_field :password, placeholder: "Password"
+      .checkbox
+        = f.check_box :remember_me
+        = f.label :remember_me
+      = f.submit 'Sign in'
