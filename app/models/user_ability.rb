@@ -5,7 +5,7 @@ class UserAbility
     user ||= User.new 
       if user.role == 'admin'
       can :manage, :all
-      elsif user.role == "user"
+      elsif user.role == "user" || "mentor"
         can :read, :all
         can :vote, :all
         can :create, [Question, Answer, Comment]

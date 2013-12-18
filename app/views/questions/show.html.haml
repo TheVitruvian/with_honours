@@ -86,7 +86,7 @@
               =form_for [@question, answer, answer.comments.build] do |f|
                 = f.text_field :content, placeholder: "Comment...", class: "comment_content"
                 = f.submit "Post comment", class: "comment_submit", disabled: true
-      .col-md-12.answer-input
+      .answer-input
         = form_for [@question, @question.answers.build] do |f|
           %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer", :size => '80x10'
           = f.submit "Post answer", disabled: true, id: "answer-submit"

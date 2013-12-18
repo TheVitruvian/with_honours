@@ -27,7 +27,7 @@
           %span
             \| 
           %span
-            = link_to 'Logout',  send("destroy_#{current_agent.class.to_s.downcase}_session_path"), method: :delete
+            = link_to 'Logout', send("destroy_#{current_agent.class.to_s.downcase}_session_path"), method: :delete
             = form_tag basic_searches_path, class: "search" do
               = text_field_tag :query, nil, placeholder: 'Search', size: 15
               = submit_tag 'Search'

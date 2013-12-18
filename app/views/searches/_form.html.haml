@@ -24,7 +24,7 @@
     %br/
     = f.select :university, University.all.map {|r| [r.name,r.id] }, {},{:multiple => true, size: 20 }
   %p
-    = f.label :degree_score
+    = f.label "Degree Score"
     %br/
     = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass }),{}, {multiple: true, size: 5}
   %p
