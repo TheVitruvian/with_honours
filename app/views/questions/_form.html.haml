@@ -6,14 +6,13 @@
         - @question.errors.full_messages.each do |msg|
           %li= msg
 
-  #post-input
-  .field
-    = f.text_field :title, placeholder: "Question title..."
-    = f.label :category
-    = f.select :category, options_for_select(%w{ Communications Consultancy General HR Marketing Teaching})
-    = f.label :image
-    = f.file_field :image
-  .field
-    = f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, :size => '30x5', placeholder: "Question explaination (optional). You can also add an image if it helps...."
-  .actions
-    %input{:type => "submit", :value => "Submit", :class => "button", :id => "question_submit", :content => :content, disabled: true}
+  .question-new
+    .question-new-topline
+      = f.text_field :title, placeholder: "Question title..."
+      = f.label :category
+      = f.select :category, options_for_select(%w{ Communications Consultancy General HR Marketing Teaching})
+      = f.label :image
+      = f.file_field :image
+      = f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, :size => '80x10', placeholder: "Question explaination (optional). You can also add an image if it helps...."
+    .actions
+      %input{:type => "submit", :value => "Submit", :class => "question-submit", :id => "question_submit", :content => :content, disabled: true}

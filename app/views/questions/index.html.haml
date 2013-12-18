@@ -11,15 +11,26 @@
         %p="Questions score: #{@current_agent.questions_score}"
         %p="Answers score: #{@current_agent.answers_score}"
         %p="Voting score: #{@votes}"
-    .col-md-7.row.col-md-offset-2
+    .col-md-7.col-md-offset-2
       %h2
         =@category
     
       %span= link_to "All", questions_path
       \|
-      %span= link_to "HR", '/HR'
-      \|
       %span= link_to "Comms", '/Comms'
       \|
       %span= link_to "Consulting", '/Consulting'
+      \|
+      %span= link_to "General", '/General'
+      \|
+      %span= link_to "HR", '/HR'
+      \|
+      %span= link_to "Marketing", '/Marketing'
+      %br/
+      %span
+        ="&#9400".html_safe
+        \- asked by a company
+        \|
+        ="&#9410".html_safe
+        \- asked by a mentor
       = ajax_section :id => "page", :render => "page"

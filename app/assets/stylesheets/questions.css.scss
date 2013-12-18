@@ -14,12 +14,16 @@ $main-grey: #F0EFE9;
   position: fixed;
 }
 
+.logo-explain{
+  float:right;
+}
+
 
 /**************
 * QUESTIONS   *
 **************/
 .questions-content{
-  background-color: #F0EFE9;
+  background-color: $main-grey;
   border-radius:10px;
   overflow: scroll;
 }  
@@ -32,6 +36,24 @@ $main-grey: #F0EFE9;
 }
 
 
+
+/**************
+* COMMENTS    *
+**************/
+.new_comment{
+  float: right;
+}
+
+.comments-score{
+}
+
+.comment-div{
+  background-color: rgba(240, 239, 233, 0.5);
+  border-radius: 10px;
+  padding: 3px 6px 6px 6px;
+  margin: 3px
+}
+
 /******************
 *  VOTING BUTTONS *
 ******************/
@@ -39,9 +61,15 @@ $main-grey: #F0EFE9;
 .voted-on{
   color: red
 }
+.answer-voted-on{
+  color: red
+}
+.comment-voted-on{
+  color: red
+}
 
 /******************
-*  VOTING BUTTONS *
+*  ANSWERS         *
 ******************/
 .answers-score{
   background-color: rgba(240, 239, 233, 0.3);
@@ -50,4 +78,7 @@ $main-grey: #F0EFE9;
   overflow: scroll;
   margin: 20px 0px;
   padding:20px;
+}
+.new_answer{
+  text-align: center;
 }

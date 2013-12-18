@@ -1,12 +1,32 @@
--if @company.logo.present?
-  =image_tag(@company.logo)
-= @company.user_name
-= @company.biography
-%br/
-= "Questions score: #{@question_up_score - @question_down_score}"
-%br/
-= "Answers score: #{@answer_up_score - @answer_down_score}"
-%br/
-= "Comments score: #{@comment_up_score - @comment_down_score}"
-%br/
-= "Voting score: #{@votes}"
+.profile.col-md-2
+  -if @company.logo.present?
+    =image_tag @company.logo, class: 'logo'
+  = @company.user_name
+  %br/
+  = "Questions score: #{@company.questions_score}"
+  %br/
+  = "Answers score: #{@company.answers_score}"
+  %br/
+  = "Comments score: #{@company.comments_score}"
+  %br/
+  = "Voting score: #{@votes}"
+  %br/
+  Description:
+  %br/
+  = raw @company.biography
+
+.col-md-9.row.col-md-offset-3
+  - @questions.each do |question| 
+    .questions-score
+      -if question.owner_type == "Company"
+        = "&#169".html_safe
+      -if question.owner_type == "User" && question.owner.role == "mentor"
+        = "&#9410".html_safe
+      = link_to "#{question.title}", question
+      %br
+      Score:
+      %span.score= question.up_votes_count + question.down_votes_count
+      Answers:
+      %span.count= question.answers.count
+    .questions-break
+      %hr
