@@ -18,6 +18,8 @@ WithHonours::Application.routes.draw do
   get '/HR', to: 'questions#index'
   get '/Comms', to: 'questions#index'
   get '/Consulting', to: 'questions#index'
+  get '/General', to: 'questions#index'
+  get '/Marketing', to: 'questions#index'
 
   authenticated :user do
     root :to => "questions#index"

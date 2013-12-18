@@ -24,9 +24,13 @@ class QuestionsController < ApplicationController
     when "/Consulting"
       @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Consultancy')
       @category = "Consulting"
-    when "/Sales"
-      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Sales')
-      @category = "Sales"
+    when "/Marketing"
+      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Marketing')
+      @category = "Marketing"
+    when "/General"
+      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'General')
+      @category = "General"
+
     else
       @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC')
       @category = "Top Questions"
@@ -51,10 +55,13 @@ class QuestionsController < ApplicationController
   def new
     authorize! :create, Question
     @question = Question.new
+    @current_agent = current_agent
   end
 
   def show
     @question = Question.find(params[:id])
+    @current_agent = current_agent
+    @votes = @current_agent.question_votes.count + @current_agent.answer_votes.count + @current_agent.comment_votes.count if current_agent
     @answers = @question.answers.order(:up_votes_count, :down_votes_count).reverse
     @up_votes_cast = []
     @down_votes_cast = []
@@ -106,6 +113,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    @current_agent = current_agent
     @question = Question.find(params[:id])
     authorize! :edit, @question
   end

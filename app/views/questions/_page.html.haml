@@ -5,9 +5,15 @@
     .questions-break
       %hr
     .questions-score
+      -if question.owner_type == "Company"
+        = "&#9400".html_safe
+      -if question.owner_type == "User" && question.owner.role == "mentor"
+        = "&#9410".html_safe
       = link_to "#{question.title}", question
       \-
       = link_to "#{question.owner.user_name}", question.owner
+
+
       %br
       Score:
       %span.score= question.up_votes_count + question.down_votes_count

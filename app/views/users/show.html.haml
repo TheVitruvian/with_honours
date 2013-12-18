@@ -1,33 +1,57 @@
--if @user.profile_picture.present?
-  = image_tag @user.profile_picture
+.profile.col-md-2
+  -if @user.profile_picture.present?
+    = image_tag @user.profile_picture, class: 'logo'
+    %br/
+  -else
+    %br/
+  -if @user.role != 'user'
+    %h4= @user.role.capitalize
+    %br/
+  = @user.user_name
+  -if current_agent = @user
+    %br/
+    = @user.first_name
+    = @user.last_name
   %br/
-= @user.user_name
--if current_agent = @user
+  = "Questions score: #{@user.questions_score}"
   %br/
-  = @user.first_name
-  = @user.last_name
-%br/
-= "Questions score: #{@user.questions_score}"
-%br/
-= "Answers score: #{@user.answers_score}"
-%br/
-= "Comments score: #{@user.comments_score}"
-%br/
-= "Voting score: #{@votes}"
--if @user.university.present?
+  = "Answers score: #{@user.answers_score}"
   %br/
-  = "University: #{@user.university.name}"
--else
+  = "Comments score: #{@user.comments_score}"
   %br/
-  = "University:"
-%br/
-= "Degree: #{@user.degree_title}"
-%br/
-= "Type: #{@user.degree_classification}"
-%br/
-= "Classification: #{@user.degree_score}"
-%br/
-= "Achieved degree:"
-= check_box_tag "" , "" , @user.degree_achieved
+  = "Voting score: #{@votes}"
+  -if @user.university.present?
+    %br/
+    = "University: #{@user.university.name}"
+  -else
+    %br/
+    = "University:"
+  %br/
+  = "Degree: #{@user.degree_title}"
+  %br/
+  = "Type: #{@user.degree_classification}"
+  %br/
+  = "Classification: #{@user.degree_score}"
+  %br/
+  = "Achieved degree:"
+  = check_box_tag "" , "" , @user.degree_achieved
+
+.col-md-9.row.col-md-offset-3
+  - @questions.order(:hotness).each do |question| 
+    .questions-score
+      -if question.owner_type == "Company"
+        = "&#169".html_safe
+      -if question.owner_type == "User" && question.owner.role == "mentor"
+        = "&#9410".html_safe
+      = link_to "#{question.title}", question
+      %br
+      Score:
+      %span.score= question.up_votes_count + question.down_votes_count
+      Answers:
+      %span.count= question.answers.count
+    .questions-break
+      %hr
+
+
 
 

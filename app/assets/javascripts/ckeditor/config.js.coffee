@@ -2,7 +2,7 @@
 
 CKEDITOR.editorConfig = (config) ->
   config.language = 'en'
-  config.width = '725'
+  config.width = '650'
   config.height = '200'
   config.extraPlugins = 'confighelper'
   config.toolbar_Normal = [

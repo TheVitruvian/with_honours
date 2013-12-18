@@ -14,10 +14,12 @@
         %p="Questions score: #{@current_agent.questions_score}"
         %p="Answers score: #{@current_agent.answers_score}"
         %p="Voting score: #{@votes}"
-    .col-md-10
+    .col-md-9.col-md-offset-3
       .questions-content
         .questions-score
           %h4= "#{@question.category}: #{@question.title}"
+          -if @question.image.present?
+            =image_tag @question.image, width: '550px'
           = raw "#{@question.content}"
           = link_to "#{@question.owner.user_name}", @question.owner
           %br
@@ -47,45 +49,47 @@
             %span.answer-score= answer.up_votes_count + answer.down_votes_count
             - if can? :vote, answer
               -if @answer_up_votes_cast.include? answer.id
-                = link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up answer-voted-on'
+                = link_to "&#x25B2".html_safe, vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up answer-voted-on'
               -else 
-                = link_to "Up vote", vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up'
+                = link_to "&#x25B2".html_safe, vote_question_answer_path(@question, answer, vote: "up"), method: :put, class: 'answer-vote-link answer-vote-up'
               -if @answer_down_votes_cast.include? answer.id
-                = link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down answer-voted-on'
+                = link_to "&#x25BC".html_safe, vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down answer-voted-on'
               -else
-                = link_to "Down vote", vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down'
+                = link_to "&#x25BC".html_safe, vote_question_answer_path(@question, answer, vote: "down"), method: :put, class: 'answer-vote-link answer-vote-down'
             - if can? :edit, answer
               = link_to 'Edit', edit_question_answer_path(@question, answer)
             - if can? :destroy, answer
               = link_to 'Delete', question_answer_path(@question, answer), :method => :delete, :data => { :confirm => 'Are you sure?' }
-              %ul.comments
-                - answer.comments.order(:created_at).each do |comment|
-                  .comments-score
-                    %li
-                      = "#{comment.content} - "
-                      = link_to "#{comment.owner.user_name}", comment.owner
-                      %br/
-                      Score: 
-                      %span.comment-score= comment.up_votes_count + comment.down_votes_count
-                      - if can? :vote, comment
-                        -if @comment_up_votes_cast.include? comment.id
-                          = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up comment-voted-on'
-                        -else
-                          = link_to "Up vote", vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up'
-                        -if @comment_down_votes_cast.include? comment.id
-                          = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down comment-voted-on'
-                        -else
-                          = link_to "Down vote", vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down'
-                      - if can? :edit, comment
-                        = link_to 'Edit', edit_question_answer_comment_path(@question, answer, comment)
-                      - if can? :destroy, comment
-                        = link_to 'Delete', question_answer_comment_path(@question, answer, comment), :method => :delete, :data => { :confirm => 'Are you sure?' }
-                = form_for [@question, answer, answer.comments.build] do |f|
-                  %p= f.text_field :content, placeholder: "Comment...", class: "comment_content"
-                  %p= f.submit "Post comment", class: "comment_submit", disabled: true
-      = form_for [@question, @question.answers.build] do |f|
-        %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer"
-        = f.submit "Post answer", disabled: true, id: "answer-submit"
-        Answers must be a minimum length, just keep going.
+            .comments
+              - answer.comments.order(:created_at).each do |comment|
+                .comments-score
+                  .comment-div
+                    = "#{comment.content} - "
+                    = link_to "#{comment.owner.user_name}", comment.owner
+                    %br/
+                    Score: 
+                    %span.comment-score= comment.up_votes_count + comment.down_votes_count
+                    - if can? :vote, comment
+                      -if @comment_up_votes_cast.include? comment.id
+                        = link_to "&#x25B2".html_safe, vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up comment-voted-on'
+                      -else
+                        = link_to "&#x25B2".html_safe, vote_question_answer_comment_path(@question, answer, comment, vote: "up"), method: :put, class: 'comment-vote-link comment-vote-up'
+                      -if @comment_down_votes_cast.include? comment.id
+                        = link_to "&#x25BC".html_safe, vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down comment-voted-on'
+                      -else
+                        = link_to "&#x25BC".html_safe, vote_question_answer_comment_path(@question, answer, comment, vote: "down"), method: :put, class: 'comment-vote-link comment-vote-down'
+                    - if can? :edit, comment
+                      = link_to 'Edit', edit_question_answer_comment_path(@question, answer, comment)
+                    - if can? :destroy, comment
+                      = link_to 'Delete', question_answer_comment_path(@question, answer, comment), :method => :delete, :data => { :confirm => 'Are you sure?' }
+            -if @current_agent
+              =form_for [@question, answer, answer.comments.build] do |f|
+                = f.text_field :content, placeholder: "Comment...", class: "comment_content"
+                = f.submit "Post comment", class: "comment_submit", disabled: true
+      .col-md-12.answer-input
+        = form_for [@question, @question.answers.build] do |f|
+          %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer", :size => '80x10'
+          = f.submit "Post answer", disabled: true, id: "answer-submit"
+          Answers must be a minimum length, just keep going.
 
         %hr
