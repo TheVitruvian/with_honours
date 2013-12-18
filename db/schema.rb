@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20131216094009) do
   create_table "comments", :force => true do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.string   "content"
+    t.text     "content"
     t.boolean  "flag",             :default => false
     t.integer  "answer_id"
     t.datetime "created_at",                          :null => false
