@@ -85,7 +85,7 @@ question7.answers << answer2
 
 comment1 = Comment.create!(content: 'Great answer!')
 comment2 = Comment.create!(content: 'Needed to read this today!')
-comment3 = Comment.create!(content: 'I disagree about the ')
+comment3 = Comment.create!(content: 'I disagree about the Lorem bit.  ')
 comment4 = Comment.create!(content: 'Spot on!')
 comment5 = Comment.create!(content: 'Cool!')
 comment6 = Comment.create!(content: 'Awesome!')
