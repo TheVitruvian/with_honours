@@ -1,17 +1,53 @@
+$main-grey: #F0EFE9;
+
 /**************
 * PROFILE BAR *
 **************/
+.logo{
+  width: 90px;
+  border-radius: 100%;
+  display: block;
+  margin: auto;
+}
 
+.profile{
 
+}
 
 
 /**************
 * QUESTIONS   *
 **************/
+.questions-content{
+  background-color: #F0EFE9;
+  border-radius:10px;
+  overflow: scroll;
+}  
+.questions-score{
+  padding: 10px 20px 20px 30px;
+}
+.questions-score:hover{
+  background-color: $main-grey;
+  border-radius: 10px;
+}
+
+
+/******************
+*  VOTING BUTTONS *
+******************/
+
+.voted-on{
+  color: red
+}
+
+/******************
+*  VOTING BUTTONS *
+******************/
+.answers-score{
+  background-color: rgba(240, 239, 233, 0.3);
   
-
-
-
-/**************
-*  CATEGORIES *
-**************/
+  border-radius:10px;
+  overflow: scroll;
+  margin: 20px 0px;
+  padding:20px;
+}

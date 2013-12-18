@@ -6,34 +6,30 @@
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Lora|Lobster|Lobster+Two:400,400italic", rel: "stylesheet", type: "text/css"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  %body.body 
+  %body.body.span8
     %header.nav.animated.fadeInDown
-      %span.logo= link_to "WithHonours.co", root_url
+      %span.WH-logo= link_to "WithHonours.co", root_url
       - current_agent = (current_user) || (current_company)
       - if current_agent
         %span.right
           %span
-            Logged in as
-            = link_to current_agent.user_name, current_agent
+            = link_to 'New Question', send("new_question_path")
+          %span
+            \|
+          %span
           -if current_agent.class.to_s == "Company"
             %span
-              \|
-            %span
               = link_to 'Search for grads', new_search_path
-          %span
-            \|
+            %span
+              \|
           %span
             = link_to 'Edit Profile', send("edit_#{current_agent.class.to_s.downcase}_registration_path")
-            \|
-          %span
-            = link_to 'New Question', send("new_question_path")
           %span
             \| 
           %span
             = link_to 'Logout',  send("destroy_#{current_agent.class.to_s.downcase}_session_path"), method: :delete
-          %span
-            = form_tag basic_searches_path do
-              = text_field_tag :query, nil, placeholder: 'Search'
+            = form_tag basic_searches_path, class: "search" do
+              = text_field_tag :query, nil, placeholder: 'Search', size: 15
               = submit_tag 'Search'
 
       - else
@@ -53,8 +49,8 @@
           %span
             =link_to 'Student Sign In', new_user_session_path
           %span
-            = form_tag basic_searches_path do
-              = text_field_tag :query, nil, placeholder: 'Search'
+            = form_tag basic_searches_path class: "search" do
+              = text_field_tag :query, nil, placeholder: 'Search', size: 15
               = submit_tag 'Search'
       
       %hr

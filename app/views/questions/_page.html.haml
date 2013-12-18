@@ -15,13 +15,13 @@
       %span.count= question.answers.count
       - if can? :vote, question
         -if @up_votes_cast.include? question.id
-          %strong= link_to "up", vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up voted-on', method: :put
+          = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up voted-on', method: :put
         -else
-          = link_to "up", vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up', method: :put
+          = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up', method: :put
         -if @down_votes_cast.include? question.id
-          %strong= link_to "down", vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down voted-on'
+          = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down voted-on'
         -else
-          = link_to "down", vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down'
+          = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down'
       - if can? [:edit, :destroy], question
         = link_to 'Edit', edit_question_path(question) 
         = link_to 'Delete', question_path(question), method: :delete, :data => { :confirm => 'Are you sure?' }
