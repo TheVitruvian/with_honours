@@ -12,9 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @user= User.find(params[:id])
-
     @votes = @user.question_votes.count + @user.answer_votes.count + @user.comment_votes.count
-    binding.pry
     @questions = @user.questions.order('hotness DESC')
   end
 end

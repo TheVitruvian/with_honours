@@ -23,17 +23,48 @@ user5 = User.create!(user_name: "AlexF", first_name: "AlexF", profile_picture: n
 
 company1 = Company.create!(user_name: "General Assembly", email: "ga@ga.com", password: "password")
 
-question1 = Question.create!(hotness: 0, owner_type: "user", title: "How to market a 'difficult' product/service?", content: 'What first steps would you take when needing to communicate a sensitive or controversial service/product to the public?', image: 'placeholder')
-question2 = Question.create!(hotness: 0, owner_type: "company", title: "Overcoming conflict...", content: 'Key members of your senior team disagree about your companies brand identity - how do you help them come to a mutual decision?', image: 'placeholder')
-question3 = Question.create!(hotness: 0, owner_type: "user", title: "Marketing in a vacuum...", content: "Your company wants to launch a new service at short notice. You've been given very little background on the service itself. What do you do first?", image: 'placeholder')
-question4 = Question.create!(hotness: 0, owner_type: "company", title: "Communication strategy", content: 'What do you think the main elements to consider when writing an annual marketing/communications strategy?', image: 'placeholder')
-question5 = Question.create!(hotness: 0, owner_type: "user", title: "What impact has social media had on Government communications?", content: '', image: 'placeholder')
-question6 = Question.create!(hotness: 0, owner_type: "user", title: "Crisis management", content: 'The new CEO of the British Business Bank (who has been hired by BIS) has been accused of (insert any possible crimes). How will the Department minimise its reputational risk in hiring this man/woman?', image: 'placeholder')
-question7 = Question.create!(hotness: 0, owner_type: "user", title: "How would you deal with a peer who steels?", content: "Its your first week in a new job as a customer services rep in a busy retail store and you think that you've spotted that a colluge is stealing low value items that your store sells. How would you go about dealing with the situation?", image: 'placeholder')
+question1 = Question.create!(hotness: 0, category: 'Marketing' ,owner_type: "user", title: "How to market a 'difficult' product/service?", content: 'What first steps would you take when needing to communicate a sensitive or controversial service/product to the public?', image: 'placeholder')
+question2 = Question.create!(hotness: 0, category: 'General', owner_type: "company", title: "Overcoming conflict...", content: 'Key members of your senior team disagree about your companies brand identity - how do you help them come to a mutual decision?', image: 'placeholder')
+question3 = Question.create!(hotness: 0, category: 'Marketing', owner_type: "user", title: "Marketing in a vacuum...", content: "Your company wants to launch a new service at short notice. You've been given very little background on the service itself. What do you do first?", image: 'placeholder')
+question4 = Question.create!(hotness: 0, category: 'Communications', owner_type: "company", title: "Communication strategy", content: 'What do you think the main elements to consider when writing an annual marketing/communications strategy?', image: 'placeholder')
+question5 = Question.create!(hotness: 0, category: 'Communications', owner_type: "user", title: "What impact has social media had on Government communications?", content: '', image: 'placeholder')
+question6 = Question.create!(hotness: 0, category: 'Communications', owner_type: "user", title: "Crisis management", content: 'The new CEO of the British Business Bank (who has been hired by BIS) has been accused of (insert any possible crimes). How will the Department minimise its reputational risk in hiring this man/woman?', image: 'placeholder')
+question7 = Question.create!(hotness: 0, category: 'General', owner_type: "user", title: "How would you deal with a peer who steels?", content: "Its your first week in a new job as a customer services rep in a busy retail store and you think that you've spotted that a colluge is stealing low value items that your store sells. How would you go about dealing with the situation?", image: 'placeholder')
+question8 = Question.create!(hotness: 0, category: 'Consulting', owner_type: "user", title: "What makes the 'perfect' pitch?", content: "You've got a big pitch tomorrow for a major account. You partner wants you to lead. What elements do you need to think about when pitching?  What are the pitfalls of looking too polished? What are the major no nos?", image: 'placeholder')
 
-answer1 = Answer.create!(owner_type: "company", content: 'Happiness is not something you postpone for the future; it is something you design for the present.')
-answer2 = Answer.create!(owner_type: "user", content: 'What we achieve inwardly will change outer reality.')
-answer3 = Answer.create!(owner_type: "company", content: 'What we obtain too cheap, we esteem too lightly: it is dearness only that gives every thing its value.')
+answer1 = Answer.create!(owner_type: "company", content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel sodales magna. Mauris pretium odio in neque laoreet, eget porta erat commodo. Curabitur sit amet semper mi. Integer tempor diam eget libero aliquam, vel placerat nibh porttitor. Aliquam erat volutpat. Fusce tincidunt euismod malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas congue diam quis elit dictum, ac convallis mi ultrices.
+
+Nulla quis ligula luctus, lacinia massa consectetur, congue elit. Vestibulum aliquet pharetra justo, sed tristique tellus imperdiet id. Nunc sit amet purus vel leo hendrerit malesuada. Vivamus gravida massa in augue dignissim, nec tincidunt sapien malesuada. Vestibulum vitae nisi vel arcu blandit mattis a a arcu. Fusce dignissim dui eu lacus facilisis ultrices. Nulla a risus quis nulla scelerisque pellentesque at at dolor. Donec suscipit ac tortor ut lacinia. Ut faucibus vehicula suscipit. Nullam dapibus pretium dolor, et sagittis odio. Maecenas non convallis magna, sit amet dignissim justo. Vivamus adipiscing laoreet porta. Aliquam tortor lacus, ornare eu luctus vitae, rutrum ut turpis. Praesent quis nibh nec nibh auctor placerat vel at diam. Fusce rhoncus nulla eu mi interdum vehicula. Maecenas ultricies neque ut libero hendrerit imperdiet.
+
+Vestibulum at pharetra magna, sed gravida enim. Curabitur ante purus, vehicula vel mauris sit amet, scelerisque tincidunt lacus. Nam malesuada imperdiet nisl. Integer rhoncus ligula consequat ligula mollis feugiat. Ut feugiat elementum pharetra. Suspendisse nisi enim, pellentesque vitae congue sit amet, vulputate eu lectus. Nulla in metus nec sem consequat interdum id et diam.
+
+Sed malesuada tortor quis ligula lacinia porttitor. Donec sodales eget nulla at mattis. Nam commodo nisi sit amet arcu pharetra, eu rutrum sem aliquam. Curabitur vel metus justo. Sed quis turpis erat. Nulla accumsan neque viverra tortor commodo, a condimentum lacus faucibus. Suspendisse elit dui, ullamcorper ut ornare a, molestie eu ligula.
+
+Duis viverra molestie urna condimentum auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Aenean eu massa erat. Mauris quis arcu vel ligula iaculis porta. Aenean vel augue eget lorem semper pretium. Proin non sapien nisi. Vivamus et sagittis tellus. Vivamus eget eleifend lectus.
+
+')
+answer2 = Answer.create!(owner_type: "user", content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel sodales magna. Mauris pretium odio in neque laoreet, eget porta erat commodo. Curabitur sit amet semper mi. Integer tempor diam eget libero aliquam, vel placerat nibh porttitor. Aliquam erat volutpat. Fusce tincidunt euismod malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas congue diam quis elit dictum, ac convallis mi ultrices.
+
+Nulla quis ligula luctus, lacinia massa consectetur, congue elit. Vestibulum aliquet pharetra justo, sed tristique tellus imperdiet id. Nunc sit amet purus vel leo hendrerit malesuada. Vivamus gravida massa in augue dignissim, nec tincidunt sapien malesuada. Vestibulum vitae nisi vel arcu blandit mattis a a arcu. Fusce dignissim dui eu lacus facilisis ultrices. Nulla a risus quis nulla scelerisque pellentesque at at dolor. Donec suscipit ac tortor ut lacinia. Ut faucibus vehicula suscipit. Nullam dapibus pretium dolor, et sagittis odio. Maecenas non convallis magna, sit amet dignissim justo. Vivamus adipiscing laoreet porta. Aliquam tortor lacus, ornare eu luctus vitae, rutrum ut turpis. Praesent quis nibh nec nibh auctor placerat vel at diam. Fusce rhoncus nulla eu mi interdum vehicula. Maecenas ultricies neque ut libero hendrerit imperdiet.
+
+Vestibulum at pharetra magna, sed gravida enim. Curabitur ante purus, vehicula vel mauris sit amet, scelerisque tincidunt lacus. Nam malesuada imperdiet nisl. Integer rhoncus ligula consequat ligula mollis feugiat. Ut feugiat elementum pharetra. Suspendisse nisi enim, pellentesque vitae congue sit amet, vulputate eu lectus. Nulla in metus nec sem consequat interdum id et diam.
+
+Sed malesuada tortor quis ligula lacinia porttitor. Donec sodales eget nulla at mattis. Nam commodo nisi sit amet arcu pharetra, eu rutrum sem aliquam. Curabitur vel metus justo. Sed quis turpis erat. Nulla accumsan neque viverra tortor commodo, a condimentum lacus faucibus. Suspendisse elit dui, ullamcorper ut ornare a, molestie eu ligula.
+
+Duis viverra molestie urna condimentum auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Aenean eu massa erat. Mauris quis arcu vel ligula iaculis porta. Aenean vel augue eget lorem semper pretium. Proin non sapien nisi. Vivamus et sagittis tellus. Vivamus eget eleifend lectus.
+
+')
+answer3 = Answer.create!(owner_type: "company", content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel sodales magna. Mauris pretium odio in neque laoreet, eget porta erat commodo. Curabitur sit amet semper mi. Integer tempor diam eget libero aliquam, vel placerat nibh porttitor. Aliquam erat volutpat. Fusce tincidunt euismod malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas congue diam quis elit dictum, ac convallis mi ultrices.
+
+Nulla quis ligula luctus, lacinia massa consectetur, congue elit. Vestibulum aliquet pharetra justo, sed tristique tellus imperdiet id. Nunc sit amet purus vel leo hendrerit malesuada. Vivamus gravida massa in augue dignissim, nec tincidunt sapien malesuada. Vestibulum vitae nisi vel arcu blandit mattis a a arcu. Fusce dignissim dui eu lacus facilisis ultrices. Nulla a risus quis nulla scelerisque pellentesque at at dolor. Donec suscipit ac tortor ut lacinia. Ut faucibus vehicula suscipit. Nullam dapibus pretium dolor, et sagittis odio. Maecenas non convallis magna, sit amet dignissim justo. Vivamus adipiscing laoreet porta. Aliquam tortor lacus, ornare eu luctus vitae, rutrum ut turpis. Praesent quis nibh nec nibh auctor placerat vel at diam. Fusce rhoncus nulla eu mi interdum vehicula. Maecenas ultricies neque ut libero hendrerit imperdiet.
+
+Vestibulum at pharetra magna, sed gravida enim. Curabitur ante purus, vehicula vel mauris sit amet, scelerisque tincidunt lacus. Nam malesuada imperdiet nisl. Integer rhoncus ligula consequat ligula mollis feugiat. Ut feugiat elementum pharetra. Suspendisse nisi enim, pellentesque vitae congue sit amet, vulputate eu lectus. Nulla in metus nec sem consequat interdum id et diam.
+
+Sed malesuada tortor quis ligula lacinia porttitor. Donec sodales eget nulla at mattis. Nam commodo nisi sit amet arcu pharetra, eu rutrum sem aliquam. Curabitur vel metus justo. Sed quis turpis erat. Nulla accumsan neque viverra tortor commodo, a condimentum lacus faucibus. Suspendisse elit dui, ullamcorper ut ornare a, molestie eu ligula.
+
+Duis viverra molestie urna condimentum auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Aenean eu massa erat. Mauris quis arcu vel ligula iaculis porta. Aenean vel augue eget lorem semper pretium. Proin non sapien nisi. Vivamus et sagittis tellus. Vivamus eget eleifend lectus.
+
+')
 
 company1.questions << question2
 company1.questions << question4
@@ -52,9 +83,9 @@ question1.answers << answer1
 question2.answers << answer3
 question7.answers << answer2
 
-comment1 = Comment.create!(content: 'So true!')
+comment1 = Comment.create!(content: 'Great answer!')
 comment2 = Comment.create!(content: 'Needed to read this today!')
-comment3 = Comment.create!(content: 'Amazing words of wisdom')
+comment3 = Comment.create!(content: 'I disagree about the ')
 comment4 = Comment.create!(content: 'Spot on!')
 comment5 = Comment.create!(content: 'Cool!')
 comment6 = Comment.create!(content: 'Awesome!')
