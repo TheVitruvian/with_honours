@@ -13,7 +13,6 @@
  *= require ajax_pagination
  */
 
-
 * {
   font-family: 'Lora';
 }
@@ -24,14 +23,15 @@
 }
 
 .search{
-  float: right
+  float: right;
+  padding-left: 5px;
 }
 
 .h2{
   font-family: 'Lora';
 }
 
-.logo{
+.WH-logo{
   font-family: 'Lobster', italic;
   font-size: 3em;
 }
@@ -39,4 +39,6 @@
 .right{
   float: right;
   padding-top: 2em;
+  width: 60%;
+  text-align: right;
 }

@@ -1,23 +1,25 @@
 %section.container
-  .span4
-    -if @current_agent
-      - if @current_agent.class.to_s == "Company" && @current_agent.logo.present?
-        %p= image_tag @current_agent.logo
-      -elsif @current_agent.class.to_s == "User" && @current_agent.profile_picture.present?
-        %p= image_tag @current_agent.profile_picture
-      %p= @current_agent.user_name
-      %p="Questions score: #{@current_agent.questions_score}"
-      %p="Answers score: #{@current_agent.answers_score}"
-      %p="Voting score: #{@votes}"
-
-  %h2
-    =@category
-  .span6
-    %span= link_to "All", questions_path
-    \|
-    %span= link_to "HR", '/HR'
-    \|
-    %span= link_to "Comms", '/Comms'
-    \|
-    %span= link_to "Consulting", '/Consulting'
-    = ajax_section :id => "page", :render => "page"
+  .row
+    .col-md-2.profile
+      -if @current_agent
+        - if @current_agent.class.to_s == "Company" && @current_agent.logo.present?
+          = image_tag @current_agent.logo, class: "logo"
+        -elsif @current_agent.class.to_s == "User" && @current_agent.profile_picture.present?
+          = image_tag @current_agent.profile_picture, class: "logo"
+        %br/
+        %p= link_to "#{@current_agent.user_name}", @current_agent
+        %p="Questions score: #{@current_agent.questions_score}"
+        %p="Answers score: #{@current_agent.answers_score}"
+        %p="Voting score: #{@votes}"
+    .col-md-7.row.col-md-offset-2
+      %h2
+        =@category
+    
+      %span= link_to "All", questions_path
+      \|
+      %span= link_to "HR", '/HR'
+      \|
+      %span= link_to "Comms", '/Comms'
+      \|
+      %span= link_to "Consulting", '/Consulting'
+      = ajax_section :id => "page", :render => "page"
