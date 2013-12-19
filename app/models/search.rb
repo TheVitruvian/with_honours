@@ -41,7 +41,7 @@ private
   end
 
   def degree_type_conditions
-    unless degree_score.blank?
+    unless degree_score== "---\n- ''\n"
       degree = degree_score.scan(/(1st|2:1|2:2|3rd|Pass)+/).flatten.to_s
       degree.gsub!("[", "(")
       degree.gsub!("]", ")")
@@ -51,18 +51,19 @@ private
     end
   end
 
-  # def degree_achieved_conditions
-  #   ["users.degree_achieved WHERE degree_achieved IN ?", degree_achieved] unless degree_achieved.blank?
-  # end
+  def degree_achieved_conditions
+    ["users.degree_achieved = true", degree_achieved] if degree_achieved
+  end
 
   def degree_classification_conditions
-    unless degree_score.blank?
-      degree_class = degree_classification.scan(/(BA|BSc|BEng|MA|MSc|MEng|LLM|MBA)+/).flatten.to_s
-      degree.gsub!("[", "(")
-      degree.gsub!("]", ")")
-      degree.gsub!("\"", "'")
 
-      ["users.degree_classification" + degree_classification]
+    unless degree_classification == "---\n- ''\n"
+      degree_class = degree_classification.scan(/(BA|BSc|BEng|MA|MSc|MEng|LLM|MBA)+/).flatten.to_s
+      degree_class.gsub!("[", "(")
+      degree_class.gsub!("]", ")")
+      degree_class.gsub!("\"", "'")
+
+      ["users.degree_classification IN " + degree_class]
     end
 
     
