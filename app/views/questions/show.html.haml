@@ -32,7 +32,7 @@
         .questions-score
           %h4= "#{@question.category}: #{@question.title}"
           -if @question.image.present?
-            =image_tag @question.image, width: '550px'
+            =image_tag @question.image, width: '100%'
           = raw "#{@question.content}"
           \-
           = link_to "#{@question.owner.user_name}", @question.owner
