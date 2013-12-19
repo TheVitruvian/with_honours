@@ -26,16 +26,16 @@
     %hr/
     .form-group
       = f.label :university
-      = f.select :university_id, University.all.map {|r| [r.name,r.id] }, class: "form-control"
+      = f.select :university_id, University.all.map {|r| [r.name,r.id] }, include_blank: true, class: "form-control"
     .form-group
       = f.label :highest_degree_classification
-      = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD }), class: "form-control"
+      = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD }), class: "form-control", include_blank: true
     .form-group
       = f.label :degree_title
       = f.text_field :degree_title, class: "form-control"
     .form-group
       = f.label "Degree score (predicted if you've not graduated)"
-      = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass }), class: "form-control"
+      = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass }), class: "form-control", include_blank: true
     .form-group
       = f.label "Tick if you have achieved the above"
       = f.check_box :degree_achieved

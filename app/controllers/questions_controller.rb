@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
     @up_votes_cast = []
     @down_votes_cast = []
     @current_agent = current_agent
-    @votes = @votes = votes_counter
+    @votes = votes_counter
 
     uri = URI("#{request.original_url}").path
 
@@ -217,10 +217,6 @@ class QuestionsController < ApplicationController
     question.owner.questions_score += vote
     question.owner.save
     question.save 
-  end
-
-  def votes_counter
-    @current_agent.question_votes.count + @current_agent.answer_votes.count + @current_agent.comment_votes.count if current_agent
   end
 
 end
