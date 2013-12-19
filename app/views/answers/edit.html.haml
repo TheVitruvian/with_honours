@@ -2,5 +2,5 @@
 
 = form_for [@question, @answer] do |f|
       %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer"
-      = f.submit "Post answer", disabled: true, id: "answer-submit"
-      Answers must be 10 characters long
+      = f.submit "Post answer", {disabled: false, class: 'btn btn-primary btn-block answer_submit'}
+      

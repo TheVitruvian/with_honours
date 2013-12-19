@@ -187,7 +187,7 @@ $ ->
 
 
   check_for_answer = ->
-    answer = CKEDITOR.instances.answer.getData().length
+    answer = CKEDITOR.instances.answer.getData().length if CKEDITOR.instances.answer
     if answer && answer > 49
       $("#answer-submit").prop('disabled', false)
     else
@@ -195,6 +195,7 @@ $ ->
 
 
   checkCommentLength = ->
+    
     $el = $(this)
     $container = $el.parent().parent()
     $commentButton = $container.find('.comment_submit')
@@ -206,18 +207,14 @@ $ ->
 
   setup_editor = ->
     check_for_answer()
-    checkCommentLength()
     
-    CKEDITOR.instances.answer.on 'key', check_for_answer
+    CKEDITOR.instances.answer.on 'key', check_for_answer if CKEDITOR.instances.answer
 
   CKEDITOR.on 'instanceReady', setup_editor
   $("#question_title").on 'keyup', checkTitleLength
-  $(".comment_content").keyup checkCommentLength
+  $(".comment_content").on 'keyup', checkCommentLength
 
-  window.onload = checkTitleLength()
-  #window.onload = checkCommentLength()
-
-
+  window.onload = checkTitleLength if $("#question_title")
 
 
 

@@ -2,6 +2,6 @@
 .form
   = form_for [@question, @answer, @comment] do |f|
     .form-group
-      = f.text_field :content, placeholder: "Comment...", class: "form-control"
+      = f.text_field :content, placeholder: "Comment...", class: "form-control comment_content"
     .form-group
-      = f.submit "Post comment", {disabled: false, class: 'btn btn-primary btn-block'}
+      = f.submit "Post comment", {disabled: false, class: 'btn btn-primary btn-block comment_submit'}
