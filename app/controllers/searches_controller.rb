@@ -5,6 +5,8 @@ class SearchesController < ApplicationController
   end
 
   def create
+    params[:search]["university"].delete("")
+
     @search = Search.new(params[:search])
     if @search.save
       redirect_to @search, :notice => "Successfully created search."
