@@ -18,6 +18,7 @@
           %span Voting score:
           %span#voting-score= @votes
     .col-md-7.col-md-offset-2
+      = "Sorry no results" if @search.users.empty?
       - @search.users.each do |user|
         %ul
           %li= link_to user.user_name, user

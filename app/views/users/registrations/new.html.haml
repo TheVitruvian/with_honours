@@ -26,7 +26,7 @@
     %hr/
     .form-group
       = f.label :university
-      = f.select :university_id, University.all.map {|r| [r.name,r.id] }, include_blank: true, class: "form-control"
+      = f.select :university_id, University.all.map {|r| [r.name,r.id] }, include_blank: true, class: "form-control select2-select"
     .form-group
       = f.label :highest_degree_classification
       = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD }), class: "form-control", include_blank: true

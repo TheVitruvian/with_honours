@@ -34,6 +34,8 @@ gem "textacular", '~> 3.0'
 gem 'jquery-rails'
 gem 'jquery-historyjs'
 
+gem 'select2-rails'
+
 gem 'cancan'
 gem "omniauth"
 gem "omniauth-linkedin-oauth2"

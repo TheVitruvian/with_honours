@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require ckeditor-jquery
-//= require_tree .
 //= require history
 //= require ajax_pagination
+//= require select2
+//= require_tree .
+

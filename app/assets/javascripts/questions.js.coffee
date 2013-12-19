@@ -180,7 +180,7 @@ $ ->
 
   checkTitleLength = ->
     title = getValue("#question_title")
-    if title.length > 0
+    if title && title.length > 0
       $("#question_submit").prop('disabled', false)
     else
       $("#question_submit").prop('disabled', true)
@@ -188,7 +188,7 @@ $ ->
 
   check_for_answer = ->
     answer = CKEDITOR.instances.answer.getData().length
-    if answer > 49
+    if answer && answer > 49
       $("#answer-submit").prop('disabled', false)
     else
       $("#answer-submit").prop('disabled', true)
@@ -214,11 +214,8 @@ $ ->
   $("#question_title").on 'keyup', checkTitleLength
   $(".comment_content").keyup checkCommentLength
 
-  $(".nav-bar").addClass('animated bounceOutLeft')
-
-
   window.onload = checkTitleLength()
-  window.onload = checkCommentLength
+  #window.onload = checkCommentLength()
 
 
 

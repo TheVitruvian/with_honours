@@ -11,8 +11,7 @@
       = f.text_area :biography, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Tell us about the company, what you're looking for, your markets, values, be as detailed as you like!"
     .form-group
       = f.label :email
-      %br/
-      = f.email_field :email, :autofocus => true
+      = f.email_field :email, :autofocus => true, class: 'form-control'
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
