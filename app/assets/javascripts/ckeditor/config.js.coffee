@@ -2,7 +2,6 @@
 
 CKEDITOR.editorConfig = (config) ->
   config.language = 'en'
-  
   config.extraPlugins = 'confighelper'
   config.toolbar_Normal = [
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],

@@ -73,7 +73,7 @@ $ ->
     $curVotesScore = parseInt $("#voting-score").text()
     $newVotesScore = $curVotesScore + 1
 
-    voteOnOwn = $qScore.find('.owner-name').text() == $('#current-user').text()
+    voteOnOwn = $qScore.find('.answer-owner-name').text() == $('#current-user').text()
     $anScore = parseInt $('#an-score').text()
     
 
