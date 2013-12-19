@@ -16,12 +16,12 @@
           %span#qu-score= @current_agent.questions_score
         %p
           %span Answers score: 
-          %span#ans-score= @current_agent.answers_score
+          %span#an-score= @current_agent.answers_score
         %p
           %span Voting score:
           %span#voting-score= @votes
       -else
-        =image_tag "placeholder-guest.jpeg", class: 'logo'
+        =image_tag "placeholder-guest.png", class: 'logo'
         %br/
         %p Guest
         %p Questions score: 0

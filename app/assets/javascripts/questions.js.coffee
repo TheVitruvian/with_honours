@@ -12,15 +12,22 @@ $ ->
     $score = $qScore.find('.score')
     voteDir = if $el.hasClass('vote-up') then 1 else -1
     curScore = parseInt $score.text()
+
+    voteOnOwn = $qScore.find('.owner-name').text() == $('#current-user').text()
+    $quScore = parseInt $('#qu-score').text()
+
+    debugger
     
     if $el.hasClass('voted-on') && $el.hasClass('vote-up')
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('voted-on')
       $newVotesScore = $curVotesScore - 1
+      $quScore = $quScore - 1 if voteOnOwn == true
     else if $el.hasClass('voted-on') && $el.hasClass('vote-down')
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('voted-on')
       $newVotesScore = $curVotesScore - 1
+      $quScore = $quScore + 1 if voteOnOwn == true
     else if !$el.hasClass('voted-on') && $el.hasClass('vote-up')
       $opposite_vote = $qScore.find('.vote-down')
 
@@ -29,9 +36,11 @@ $ ->
         $el.addClass('voted-on')
         $opposite_vote.removeClass('voted-on')
         $newVotesScore = $curVotesScore
+        $quScore = $quScore + 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('voted-on')
+        $quScore = $quScore + 1 if voteOnOwn == true
 
     else if !$el.hasClass('voted-on') && $el.hasClass('vote-down')
       $opposite_vote = $qScore.find('.vote-up')
@@ -41,12 +50,15 @@ $ ->
         $el.addClass('voted-on')
         $opposite_vote.removeClass('voted-on')
         $newVotesScore = $curVotesScore
+        $quScore = $quScore - 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
-        $el.addClass('voted-on')  
+        $el.addClass('voted-on')
+        $quScore = $quScore - 1 if voteOnOwn == true
 
     $score.text(newScore)
     $("#voting-score").text($newVotesScore)
+    $("#qu-score").text($quScore)
 
     false
 
@@ -59,16 +71,26 @@ $ ->
     $score = $qScore.find('.answer-score')
     voteDir = if $el.hasClass('answer-vote-up') then 1 else -1
     curScore = parseInt $score.text()
+
+    $curVotesScore = parseInt $("#voting-score").text()
+    $newVotesScore = $curVotesScore + 1
+
+    voteOnOwn = $qScore.find('.owner-name').text() == $('#current-user').text()
+    $anScore = parseInt $('#an-score').text()
     
 
     if $el.hasClass('answer-voted-on') && $el.hasClass('answer-vote-up')
       #correct
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('answer-voted-on')
+      $newVotesScore = $curVotesScore - 1
+      $anScore = $anScore - 1 if voteOnOwn == true
     else if $el.hasClass('answer-voted-on') && $el.hasClass('answer-vote-down')
       # correct
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('answer-voted-on')
+      $newVotesScore = $curVotesScore - 1
+      $anScore = $anScore + 1 if voteOnOwn == true
     else if !$el.hasClass('answer-voted-on') && $el.hasClass('answer-vote-up')
       $opposite_vote = $qScore.find('.answer-vote-down')
 
@@ -76,9 +98,12 @@ $ ->
         newScore = curScore + window.userVote * voteDir * 2
         $el.addClass('answer-voted-on')
         $opposite_vote.removeClass('answer-voted-on')
+        $newVotesScore = $curVotesScore
+        $anScore = $anScore + 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('answer-voted-on')
+        $anScore = $anScore + 1 if voteOnOwn == true
 
     else if !$el.hasClass('answer-voted-on') && $el.hasClass('answer-vote-down')
       $opposite_vote = $qScore.find('.answer-vote-up')
@@ -87,11 +112,16 @@ $ ->
         newScore = curScore + window.userVote * voteDir * 2
         $el.addClass('answer-voted-on')
         $opposite_vote.removeClass('answer-voted-on')
+        $newVotesScore = $curVotesScore
+        $anScore = $anScore - 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
-        $el.addClass('answer-voted-on')  
+        $el.addClass('answer-voted-on')
+        $anScore = $anScore - 1 if voteOnOwn == true  
 
     $score.text(newScore)
+    $("#voting-score").text($newVotesScore)
+    $("#an-score").text($anScore)
 
     false
 
@@ -104,16 +134,21 @@ $ ->
     $score = $qScore.find('.comment-score')
     voteDir = if $el.hasClass('comment-vote-up') then 1 else -1
     curScore = parseInt $score.text()
+
+    $curVotesScore = parseInt $("#voting-score").text()
+    $newVotesScore = $curVotesScore + 1
     
 
     if $el.hasClass('comment-voted-on') && $el.hasClass('comment-vote-up')
       #correct
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('comment-voted-on')
+      $newVotesScore = $curVotesScore - 1
     else if $el.hasClass('comment-voted-on') && $el.hasClass('comment-vote-down')
       # correct
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('comment-voted-on')
+      $newVotesScore = $curVotesScore - 1
     else if !$el.hasClass('comment-voted-on') && $el.hasClass('comment-vote-up')
       $opposite_vote = $qScore.find('.comment-vote-down')
 
@@ -121,6 +156,7 @@ $ ->
         newScore = curScore + window.userVote * voteDir * 2
         $el.addClass('comment-voted-on')
         $opposite_vote.removeClass('comment-voted-on')
+        $newVotesScore = $curVotesScore
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('comment-voted-on')
@@ -132,11 +168,13 @@ $ ->
         newScore = curScore + window.userVote * voteDir * 2
         $el.addClass('comment-voted-on')
         $opposite_vote.removeClass('comment-voted-on')
+        $newVotesScore = $curVotesScore
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('comment-voted-on')  
 
     $score.text(newScore)
+    $("#voting-score").text($newVotesScore)
 
     false
 
