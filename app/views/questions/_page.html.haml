@@ -11,7 +11,7 @@
         = "&#9410".html_safe
       = link_to "#{question.title}", question
       \-
-      = link_to "#{question.owner.user_name}", question.owner
+      = link_to "#{question.owner.user_name}", question.owner, class: "owner-name"
 
 
       %br

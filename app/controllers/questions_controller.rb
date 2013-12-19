@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
     @up_votes_cast = []
     @down_votes_cast = []
     @current_agent = current_agent
-    @votes = @current_agent.question_votes.count + @current_agent.answer_votes.count + @current_agent.comment_votes.count if current_agent
+    @votes = @votes = votes_counter
 
     uri = URI("#{request.original_url}").path
 
@@ -56,12 +56,13 @@ class QuestionsController < ApplicationController
     authorize! :create, Question
     @question = Question.new
     @current_agent = current_agent
+    @votes = votes_counter
   end
 
   def show
     @question = Question.find(params[:id])
     @current_agent = current_agent
-    @votes = @current_agent.question_votes.count + @current_agent.answer_votes.count + @current_agent.comment_votes.count if current_agent
+    @votes = votes_counter
     @answers = @question.answers.order(:up_votes_count, :down_votes_count).reverse
     @up_votes_cast = []
     @down_votes_cast = []
@@ -217,4 +218,9 @@ class QuestionsController < ApplicationController
     question.owner.save
     question.save 
   end
+
+  def votes_counter
+    @current_agent.question_votes.count + @current_agent.answer_votes.count + @current_agent.comment_votes.count if current_agent
+  end
+
 end

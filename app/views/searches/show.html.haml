@@ -1,6 +1,7 @@
 - @search.users.each do |user|
-  %ul= user.user_name
-  %p= user.degree_classification
-  %p= user.degree_title
-  %p= user.university
+  %ul
+    %li= link_to user.user_name, user
+    %p= user.degree_classification if user.degree_classification.present?
+    %p= user.degree_classification if user.degree_title.present?
+    %p= user.university.name unless user.university == nil
 

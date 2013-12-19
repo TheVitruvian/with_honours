@@ -14,12 +14,13 @@
  */
 
 * {
-  font-family: 'Lora';
+  font-family: 'Karla';
 }
 
 .body{
-  margin-right: 20%;
-  margin-left: 10%;
+  margin-right: 14%;
+  margin-left: 14%;
+  margin-bottom: 40px;
 }
 
 .search{
@@ -32,7 +33,6 @@
 }
 
 .WH-logo{
-  font-family: 'Lobster', italic;
   font-size: 3em;
 }
 
