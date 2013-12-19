@@ -48,7 +48,7 @@ class QuestionsController < ApplicationController
     @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_user && current_user.role == "mentor" 
     respond_to do |format|
       format.html # index.html.erb
-      ajax_respond format, :section_id => "page"
+      
     end
   end
 
