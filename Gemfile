@@ -24,7 +24,6 @@ gem 'pg'
 
 
 gem "will_paginate", "~> 3.0"
-gem 'ajax_pagination'
 gem "haml-rails"
 gem 'pry-rails'
 gem 'devise'
@@ -32,7 +31,6 @@ gem "omniauth-google-oauth2"
 gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 gem "textacular", '~> 3.0'
 gem 'jquery-rails'
-gem 'jquery-historyjs'
 
 gem 'select2-rails'
 

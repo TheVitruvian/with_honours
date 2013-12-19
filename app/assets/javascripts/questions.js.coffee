@@ -195,7 +195,6 @@ $ ->
 
 
   checkCommentLength = ->
-    
     $el = $(this)
     $container = $el.parent().parent()
     $commentButton = $container.find('.comment_submit')
