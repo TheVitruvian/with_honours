@@ -98,8 +98,10 @@
                       = link_to 'Delete', question_answer_comment_path(@question, answer, comment), :method => :delete, :data => { :confirm => 'Are you sure?' }
             -if @current_agent
               =form_for [@question, answer, answer.comments.build] do |f|
-                = f.text_field :content, placeholder: "Comment...", class: "comment_content"
-                = f.submit "Post comment", class: "comment_submit", disabled: true
+                .form-group
+                  = f.text_field :content, placeholder: "Comment...", class: "comment_content form-control"
+                .form-group
+                  = f.submit "Post comment", class: "comment_submit btn btn-primary btn-block", disabled: true
       .answer-input
         = form_for [@question, @question.answers.build] do |f|
           %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer", :size => '80x10'

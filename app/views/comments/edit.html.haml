@@ -1,5 +1,7 @@
 %h1 Editing question
-
-= form_for [@question, @answer, @comment] do |f|
-  %p= f.text_field :content, placeholder: "Comment..."
-  %p= f.submit "Post comment", disabled: false
+.form
+  = form_for [@question, @answer, @comment] do |f|
+    .form-group
+      = f.text_field :content, placeholder: "Comment...", class: "form-control"
+    .form-group
+      = f.submit "Post comment", {disabled: false, class: 'btn btn-primary btn-block'}
