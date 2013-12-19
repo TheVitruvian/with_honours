@@ -1,5 +1,5 @@
 .row.animated.fadeInDown
-  %iframe.col-md-8{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "430", :src => "http://www.youtube.com/embed/#{@video_id}", :title => "YouTube video player"}
+  %iframe.col-md-8{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "475", :src => "http://www.youtube.com/embed/#{@video_id}", :title => "YouTube video player"}
 
   .col-md-4
     =button_to "Have a look around", questions_path, :method => :get, class: "btn btn-danger btn-block"
@@ -7,22 +7,22 @@
     .form-group
     = form_for("user", :url => user_registration_path) do |f|
       .form-group
-      = f.text_field :user_name, placeholder: "Username", size: "38"
+      = f.text_field :user_name, placeholder: "Username", class: 'form-control'
       .form-group
-      = f.text_field :email, placeholder: "Email", size: "38"
+      = f.text_field :email, placeholder: "Email", class: 'form-control'
       .form-group
-      = f.password_field :password, placeholder: "Password", size: "38"
+      = f.password_field :password, placeholder: "Password", class: 'form-control'
       .form-group
-      = f.password_field :password_confirmation, placeholder: "Password Confirm", size: "38"
+      = f.password_field :password_confirmation, placeholder: "Password Confirm", class: 'form-control'
       .form-group
       = f.submit 'Sign up', class: "btn btn-primary btn-block"
     
     %h5 Student Quick Sign in
     = form_for("user", :url => user_session_path) do |f|
       .form-group
-      = f.text_field :email, placeholder: "Email", size: "38"
+      = f.text_field :email, placeholder: "Email", class: 'form-control'
       .form-group
-      = f.password_field :password, placeholder: "Password", size: "38"
+      = f.password_field :password, placeholder: "Password", class: 'form-control'
       .form-group
       = f.submit 'Quick Sign in', class: "btn btn-primary btn-block"
 %hr

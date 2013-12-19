@@ -15,19 +15,17 @@ $ ->
 
     voteOnOwn = $qScore.find('.owner-name').text() == $('#current-user').text()
     $quScore = parseInt $('#qu-score').text()
-
-    debugger
     
     if $el.hasClass('voted-on') && $el.hasClass('vote-up')
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('voted-on')
       $newVotesScore = $curVotesScore - 1
-      $quScore = $quScore - 1 if voteOnOwn == true
+      $quScore = $quScore - window.userVote if voteOnOwn == true
     else if $el.hasClass('voted-on') && $el.hasClass('vote-down')
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('voted-on')
       $newVotesScore = $curVotesScore - 1
-      $quScore = $quScore + 1 if voteOnOwn == true
+      $quScore = $quScore + window.userVote if voteOnOwn == true
     else if !$el.hasClass('voted-on') && $el.hasClass('vote-up')
       $opposite_vote = $qScore.find('.vote-down')
 
@@ -36,11 +34,11 @@ $ ->
         $el.addClass('voted-on')
         $opposite_vote.removeClass('voted-on')
         $newVotesScore = $curVotesScore
-        $quScore = $quScore + 2 if voteOnOwn == true
+        $quScore = $quScore + window.userVote * 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('voted-on')
-        $quScore = $quScore + 1 if voteOnOwn == true
+        $quScore = $quScore + window.userVote if voteOnOwn == true
 
     else if !$el.hasClass('voted-on') && $el.hasClass('vote-down')
       $opposite_vote = $qScore.find('.vote-up')
@@ -50,11 +48,11 @@ $ ->
         $el.addClass('voted-on')
         $opposite_vote.removeClass('voted-on')
         $newVotesScore = $curVotesScore
-        $quScore = $quScore - 2 if voteOnOwn == true
+        $quScore = $quScore - window.userVote * 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('voted-on')
-        $quScore = $quScore - 1 if voteOnOwn == true
+        $quScore = $quScore - window.userVote if voteOnOwn == true
 
     $score.text(newScore)
     $("#voting-score").text($newVotesScore)
@@ -84,13 +82,13 @@ $ ->
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('answer-voted-on')
       $newVotesScore = $curVotesScore - 1
-      $anScore = $anScore - 1 if voteOnOwn == true
+      $anScore = $anScore - window.userVote if voteOnOwn == true
     else if $el.hasClass('answer-voted-on') && $el.hasClass('answer-vote-down')
       # correct
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('answer-voted-on')
       $newVotesScore = $curVotesScore - 1
-      $anScore = $anScore + 1 if voteOnOwn == true
+      $anScore = $anScore + window.userVote if voteOnOwn == true
     else if !$el.hasClass('answer-voted-on') && $el.hasClass('answer-vote-up')
       $opposite_vote = $qScore.find('.answer-vote-down')
 
@@ -99,11 +97,11 @@ $ ->
         $el.addClass('answer-voted-on')
         $opposite_vote.removeClass('answer-voted-on')
         $newVotesScore = $curVotesScore
-        $anScore = $anScore + 2 if voteOnOwn == true
+        $anScore = $anScore + window.userVote * 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('answer-voted-on')
-        $anScore = $anScore + 1 if voteOnOwn == true
+        $anScore = $anScore + window.userVote if voteOnOwn == true
 
     else if !$el.hasClass('answer-voted-on') && $el.hasClass('answer-vote-down')
       $opposite_vote = $qScore.find('.answer-vote-up')
@@ -113,11 +111,11 @@ $ ->
         $el.addClass('answer-voted-on')
         $opposite_vote.removeClass('answer-voted-on')
         $newVotesScore = $curVotesScore
-        $anScore = $anScore - 2 if voteOnOwn == true
+        $anScore = $anScore - window.userVote * 2 if voteOnOwn == true
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('answer-voted-on')
-        $anScore = $anScore - 1 if voteOnOwn == true  
+        $anScore = $anScore - window.userVote if voteOnOwn == true  
 
     $score.text(newScore)
     $("#voting-score").text($newVotesScore)
@@ -182,7 +180,7 @@ $ ->
 
   checkTitleLength = ->
     title = getValue("#question_title")
-    if title.length > 0
+    if title && title.length > 0
       $("#question_submit").prop('disabled', false)
     else
       $("#question_submit").prop('disabled', true)
@@ -190,7 +188,7 @@ $ ->
 
   check_for_answer = ->
     answer = CKEDITOR.instances.answer.getData().length
-    if answer > 49
+    if answer && answer > 49
       $("#answer-submit").prop('disabled', false)
     else
       $("#answer-submit").prop('disabled', true)
@@ -216,11 +214,8 @@ $ ->
   $("#question_title").on 'keyup', checkTitleLength
   $(".comment_content").keyup checkCommentLength
 
-  $(".nav-bar").addClass('animated bounceOutLeft')
-
-
   window.onload = checkTitleLength()
-  window.onload = checkCommentLength
+  #window.onload = checkCommentLength()
 
 
 

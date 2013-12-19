@@ -2,6 +2,8 @@ class SearchesController < ApplicationController
 
   def show
     @search = Search.find(params[:id])
+    @current_agent = current_agent
+    @votes = votes_counter
   end
 
   def create
@@ -17,6 +19,8 @@ class SearchesController < ApplicationController
 
   def new
     @search = Search.new
+    @current_agent = current_agent
+    @votes = votes_counter
   end
 
 end

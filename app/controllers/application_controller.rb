@@ -18,4 +18,9 @@ class ApplicationController < ActionController::Base
   def current_agent
     current_user || current_company
   end
+
+
+  def votes_counter
+    @current_agent.question_votes.count + @current_agent.answer_votes.count + @current_agent.comment_votes.count if current_agent
+  end
 end

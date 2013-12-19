@@ -6,13 +6,16 @@
         - @question.errors.full_messages.each do |msg|
           %li= msg
 
-  %form.form-inline
+  %form.form
     .form-group
-      = f.text_field :title, placeholder: "Question title...(required)"
+      = f.label :question_title
+      = f.text_field :title, placeholder: "Question title...(required)", class: 'form-control'
     .form-group
-      = f.select :category, options_for_select(%w{ Communications Consultancy General HR Marketing Teaching})
+      = f.label :question_category
+      = f.select :category, options_for_select(%w{ Communications Consultancy General HR Marketing Teaching}), class: 'form-control'
+    .form-group
       = f.label :image
-      = f.file_field :image
+      = f.file_field :image, class: 'form-control'
     .form-group
       = f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Small"}, :size => '80x10', placeholder: "Question explaination (optional). You can also add an image if it helps..."
     %input{:type => "submit", :value => "Submit", :class => "question-submit btn btn-primary btn-block", :id => "question_submit", :content => :content, disabled: true}

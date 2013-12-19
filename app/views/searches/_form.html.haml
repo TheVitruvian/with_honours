@@ -1,38 +1,37 @@
 = form_for @search do |f|
-  %p
-    = f.label :keywords
-    %br/
-    = f.text_field :keywords
-  %p
-    = f.label :category
-    %br/
-    = f.text_field :category
-  %p
-    = f.label :questions_score
-    %br/
-    = f.number_field :questions_score
-  %p
-    = f.label :answers_score
-    %br/
-    = f.number_field :answers_score
-  %p
-    = f.label :comments_score
-    %br/
-    = f.number_field :comments_score
-  %p
-    = f.label "University(ies) - hold ctrl/cmd to select multiple"
-    %br/
-    = f.select :university, University.all.map {|r| [r.name,r.id] }, {},{:multiple => true, size: 20 }
-  %p
-    = f.label "Degree Score"
-    %br/
-    = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass }),{}, {multiple: true, size: 5}
-  %p
-    = f.label :degree_achieved
-    %br/
-    = f.check_box :degree_achieved
-  %p
-    = f.label :degree_classification
-    %br/
-    = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD }),{},{ multiple: true, size: 8}
-  %p= f.submit
+  .form
+    .form-group
+      = f.label :keywords
+      = f.text_field :keywords, class: 'form-control'
+    .form-group
+      = f.label :category
+      = f.text_field :category, class: 'form-control'
+    .form-group
+      = f.label :questions_score
+      = f.number_field :questions_score, class: 'form-control'
+    .form-group
+      = f.label :answers_score
+      = f.number_field :answers_score, class: 'form-control'
+    .form-group
+      = f.label :comments_score
+      = f.number_field :comments_score, class: 'form-control'
+    .form-group#uni-select
+      = f.label "University(ies) - feel free to select multiple"
+      = f.select :university, University.all.map {|r| [r.name,r.id] }, {},{:multiple => true, size: 20, class: 'form-control select2-select', include_blank: true, style: "width:100%"}
+    .form-group
+      = f.label "Degree Score - feel free to select multiple"
+      = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass }),{}, {multiple: true, size: 2, include_blank: true, class: 'form-control'}
+    .form-group
+      = f.label :degree_achieved
+      = f.check_box :degree_achieved
+    .form-group
+      = f.label "Degree Classification - feel free to select multiple"
+      = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD }),{},{ multiple: true, size: 2, class: 'form-control'}
+      %br/
+      = f.submit "Search", class: 'btn btn-primary btn-block'
+
+
+
+
+
+

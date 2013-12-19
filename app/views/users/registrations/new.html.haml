@@ -1,59 +1,46 @@
 %h2 Sign up
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = devise_error_messages!
-
-  %div
-    = f.label :user_name
-    %br/
-    = f.text_field :user_name, :autofocus => true
-  %div
-    = f.label :first_name
-    %br/
-    = f.text_field :first_name
-  %div
-    = f.label :last_name
-    %br/
-    = f.text_field :last_name
-  %div
-    = f.label :profile_picture
-    %br/
-    = f.file_field :profile_picture
-  %div
-    = f.label "A bit about you..."
-    %br/
-    = f.text_area :biography, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Tell employers about you, what jobs you're looking for, express yourself!"
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  %hr/
-  %div
-    = f.label :university
-    %br/
-    = f.select :university_id, University.all.map {|r| [r.name,r.id] }
-  %div
-    = f.label :highest_degree_classification
-    %br/
-    = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD })
-  %div
-    = f.label :degree_title
-    %br/
-    = f.text_field :degree_title
-  %div
-    = f.label "Degree score (predicted if you've not graduated)"
-    %br/
-    = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass })
-  %div
-    = f.label "Tick if you have achieved the above"
-    %br/
-    = f.check_box :degree_achieved
-  %div= f.submit "Sign up"
+  .form
+    .form-group
+      = f.label :user_name
+      = f.text_field :user_name, :autofocus => true, class: "form-control", placeholder: "Required..."
+    .form-group
+      = f.label :first_name
+      = f.text_field :first_name, class: "form-control"
+    .form-group
+      = f.label :last_name
+      = f.text_field :last_name, class: "form-control"
+    .form-group
+      = f.label :profile_picture
+      = f.file_field :profile_picture, class: "form-control"
+    .form-group
+      = f.label :email
+      = f.email_field :email, class: "form-control", placeholder: "Required..."
+    .form-group
+      = f.label :password
+      = f.password_field :password, class: "form-control", placeholder: "Required..."
+    .form-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, class: "form-control", placeholder: "Required..."
+    %hr/
+    .form-group
+      = f.label :university
+      = f.select :university_id, University.all.map {|r| [r.name,r.id] }, include_blank: true, class: "form-control select2-select"
+    .form-group
+      = f.label :highest_degree_classification
+      = f.select :degree_classification, options_for_select(%w{ BA BSc BEng MA MSc MEng LLM MBA PhD }), class: "form-control", include_blank: true
+    .form-group
+      = f.label :degree_title
+      = f.text_field :degree_title, class: "form-control"
+    .form-group
+      = f.label "Degree score (predicted if you've not graduated)"
+      = f.select :degree_score, options_for_select(%w{ 1st 2:1 2:2 3rd Pass }), class: "form-control", include_blank: true
+    .form-group
+      = f.label "Tick if you have achieved the above"
+      = f.check_box :degree_achieved
+    .form-group
+      = f.label "A bit about you..."
+      = f.text_area :biography, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Tell employers about you, what jobs you're looking for, express yourself!"
+    %div= f.submit "Sign up", class: 'btn btn-primary btn-block'
 = render "users/shared/links"

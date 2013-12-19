@@ -6,8 +6,8 @@ $ ->
     else
       $("#answer-submit").prop('disabled', true)
 
-  setup_editor = ->
+  setup_editor_answer = ->
     check_for_answer()
     CKEDITOR.instances.answer.on 'key', check_for_answer
 
-  CKEDITOR.on 'instanceReady', setup_editor
+   CKEDITOR.on 'instanceReady', setup_editor_answer
