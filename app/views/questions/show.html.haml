@@ -103,7 +103,7 @@
       .answer-input
         = form_for [@question, @question.answers.build] do |f|
           %p= f.text_area :content, :class => 'ckeditor', :ckeditor => {:toolbar => "Normal"}, placeholder: "Have a good answer...?", id: "answer", :size => '80x10'
-          = f.submit "Post answer", disabled: true, id: "answer-submit"
+          = f.submit "Post answer", disabled: true, id: "answer-submit", class: 'btn btn-primary btn-block'
           Answers must be a minimum length, just keep going.
 
         %hr
