@@ -1,2 +1,6 @@
-- @search.users.order(:degree_classification).each do |user|
-  %p= user.user_name
+- @search.users.each do |user|
+  %ul= user.user_name
+  %p= user.degree_classification
+  %p= user.degree_title
+  %p= user.university
+

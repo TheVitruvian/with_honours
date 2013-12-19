@@ -29,19 +29,43 @@ private
   end
 
   def universities_conditions
-    ["users.university WHERE ID IN ?", university] unless university.blank?
+    uni = university.scan(/\d+/).map{|u| u.to_i}
+
+    unless uni.empty?
+      uni = uni.to_s
+      uni.to_s.gsub!("[", "(")
+      uni.to_s.gsub!("]", ")")
+
+      ["users.university_id IN " + uni.to_s]
+    end
   end
 
   def degree_type_conditions
-    ["users.degree_score WHERE degree_score IN ?", degree_score] unless degree_score.blank?
+    unless degree_score.blank?
+      degree = degree_score.scan(/(1st|2:1|2:2|3rd|Pass)+/).flatten.to_s
+      degree.gsub!("[", "(")
+      degree.gsub!("]", ")")
+      degree.gsub!("\"", "'")
+
+      ["users.degree_score IN " + degree.to_s]
+    end
   end
 
-  def degree_achieved_conditions
-    ["users.degree_achieved WHERE degree_achieved = ?", degree_achieved] unless degree_achieved.blank?
-  end
+  # def degree_achieved_conditions
+  #   ["users.degree_achieved WHERE degree_achieved IN ?", degree_achieved] unless degree_achieved.blank?
+  # end
 
   def degree_classification_conditions
-    ["users.degree_classification WHERE degree_classification IN ?", degree_classification] unless degree_classification.blank?
+    unless degree_score.blank?
+      degree_class = degree_classification.scan(/(BA|BSc|BEng|MA|MSc|MEng|LLM|MBA)+/).flatten.to_s
+      degree.gsub!("[", "(")
+      degree.gsub!("]", ")")
+      degree.gsub!("\"", "'")
+
+      ["users.degree_classification" + degree_classification]
+    end
+
+    
   end
 
   def conditions
