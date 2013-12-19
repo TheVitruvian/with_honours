@@ -1,29 +1,37 @@
 .row.animated.fadeInDown
-  %iframe.col-md-8{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "430", :src => "http://www.youtube.com/embed/#{@video_id}", :title => "YouTube video player", :width => "640"}
+  %iframe.col-md-8{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "430", :src => "http://www.youtube.com/embed/#{@video_id}", :title => "YouTube video player"}
 
   .col-md-4
-    .button
-      =button_to "Have a look around", questions_path, :method => :get
-    %h4 Student Quick Sign up
+    =button_to "Have a look around", questions_path, :method => :get, class: "btn btn-danger btn-block"
+    %h5 Student Quick Sign up
+    .form-group
     = form_for("user", :url => user_registration_path) do |f|
       .form-group
-      = f.text_field :user_name, placeholder: "Username"
+      = f.text_field :user_name, placeholder: "Username", size: "38"
       .form-group
-      = f.text_field :email, placeholder: "Email"
+      = f.text_field :email, placeholder: "Email", size: "38"
       .form-group
-      = f.password_field :password, placeholder: "Password"
+      = f.password_field :password, placeholder: "Password", size: "38"
       .form-group
-      = f.password_field :password_confirmation, placeholder: "Password Confirm"
+      = f.password_field :password_confirmation, placeholder: "Password Confirm", size: "38"
       .form-group
-      = f.submit 'Sign up'
+      = f.submit 'Sign up', class: "btn btn-primary btn-block"
     
-    %h4 Student Quick Sign in
+    %h5 Student Quick Sign in
     = form_for("user", :url => user_session_path) do |f|
       .form-group
-      = f.text_field :email, placeholder: "Email"
+      = f.text_field :email, placeholder: "Email", size: "38"
       .form-group
-      = f.password_field :password, placeholder: "Password"
-      .checkbox
-        = f.check_box :remember_me
-        = f.label :remember_me
-      = f.submit 'Sign in'
+      = f.password_field :password, placeholder: "Password", size: "38"
+      .form-group
+      = f.submit 'Quick Sign in', class: "btn btn-primary btn-block"
+%hr
+.col-md-4.front-explainer
+  %h4 Ask Questions & Answer Well 
+  %p The principal is very simple. Ask intelligent and well balanced questions to your peers to get 'upvotes', the better you questions, the more upvotes you'll get the better then chance you'll be spotted by an employer who's looking for someone with your skills. (Try not to answer your own questions, you're not likely to get many votes)
+.col-md-4.front-explainer
+  %h4 Build up a rep
+  %p The same principal applies to your answers (and comments), answer well, often and showing that you've got the talent that a graduate employer might be looking. Your question, answers, comments and voting history all conribute to your online reputation that stays with you as long as you're a member. 
+.col-md-4.front-explainer
+  %h4 Get noticed
+  %p Companies ask questions too, you can be certain that if they're taking the time to ask, they're looking to bring in the brightest and the best. Look out for their questions and start building up that rapport now, it might make all the difference when they're looking to hire.

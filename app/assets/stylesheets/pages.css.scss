@@ -1,0 +1,15 @@
+$main-grey: #F0EFE9;
+
+
+.questions-content{
+  background-color: $main-grey;
+  border-radius:10px;
+  overflow: scroll;
+}  
+.front-explainer{
+  padding: 10px 20px 20px 30px;
+}
+.front-explainer:hover{
+  background-color: $main-grey;
+  border-radius: 10px;
+}

@@ -1,5 +1,5 @@
 .col-md-2.profile
-  -if @current_agent
+  -if @current_agent.present?
     - if @current_agent.class.to_s == "Company" && @current_agent.logo.present?
       = image_tag @current_agent.logo, class: "logo"
     -elsif @current_agent.class.to_s == "User" && @current_agent.profile_picture.present?
@@ -10,7 +10,7 @@
     %p="Answers score: #{@current_agent.answers_score}"
     %p="Voting score: #{@votes}"
 
-.col-md-7.row.col-md-offset-3
+.col-md-9.row.col-md-offset-3
   %h1 New question
 
 

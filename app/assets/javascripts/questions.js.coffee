@@ -5,20 +5,22 @@ $ ->
     h = $el.attr('href')
     $.ajax url: h, type: "PUT"
     
+    $curVotesScore = parseInt $("#voting-score").text()
+    $newVotesScore = $curVotesScore + 1
+    
     $qScore = $el.parents('.questions-score')
     $score = $qScore.find('.score')
     voteDir = if $el.hasClass('vote-up') then 1 else -1
     curScore = parseInt $score.text()
     
-
     if $el.hasClass('voted-on') && $el.hasClass('vote-up')
-      #correct
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('voted-on')
+      $newVotesScore = $curVotesScore - 1
     else if $el.hasClass('voted-on') && $el.hasClass('vote-down')
-      # correct
       newScore = curScore - window.userVote * voteDir
       $el.removeClass('voted-on')
+      $newVotesScore = $curVotesScore - 1
     else if !$el.hasClass('voted-on') && $el.hasClass('vote-up')
       $opposite_vote = $qScore.find('.vote-down')
 
@@ -26,6 +28,7 @@ $ ->
         newScore = curScore + window.userVote * voteDir * 2
         $el.addClass('voted-on')
         $opposite_vote.removeClass('voted-on')
+        $newVotesScore = $curVotesScore
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('voted-on')
@@ -37,11 +40,13 @@ $ ->
         newScore = curScore + window.userVote * voteDir * 2
         $el.addClass('voted-on')
         $opposite_vote.removeClass('voted-on')
+        $newVotesScore = $curVotesScore
       else
         newScore = curScore + window.userVote * voteDir
         $el.addClass('voted-on')  
 
     $score.text(newScore)
+    $("#voting-score").text($newVotesScore)
 
     false
 
