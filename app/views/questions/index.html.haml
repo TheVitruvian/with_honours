@@ -46,4 +46,39 @@
         \|
         ="&#9410".html_safe
         \- asked by a mentor
-      = ajax_section :id => "page", :render => "page"
+      - @questions.each do |question| 
+        .questions-break
+          %hr
+        .questions-score
+          -if question.owner_type == "Company"
+            = "&#9400".html_safe
+          -if question.owner_type == "User" && question.owner.role == "mentor"
+            = "&#9410".html_safe
+          = link_to "#{question.title}", question
+          \-
+          = link_to "#{question.owner.user_name}", question.owner, class: "owner-name"
+
+
+          %br
+          Score:
+          %span.score= question.up_votes_count + question.down_votes_count
+          Answers:
+          %span.count= question.answers.count
+          - if can? :vote, question
+            -if @up_votes_cast.include? question.id
+              = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up voted-on', method: :put
+            -else
+              = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up', method: :put
+            -if @down_votes_cast.include? question.id
+              = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down voted-on'
+            -else
+              = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down'
+          - if can? [:edit, :destroy], question
+            = link_to 'Edit', edit_question_path(question) 
+            = link_to 'Delete', question_path(question), method: :delete, :data => { :confirm => 'Are you sure?' }
+
+%br/
+%br/
+%br/
+%br/
+%br/
