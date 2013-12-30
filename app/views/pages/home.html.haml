@@ -1,8 +1,18 @@
 .row.animated.fadeInDown
-  %iframe.col-md-8{:allowscriptaccess => "always", :allowFullScreen => "true", :frameborder => "0", :height => "475", :src => "http://www.youtube.com/embed/#{@video_id}", :title => "YouTube video player"}
+  .video-div
+    %iframe.col-md-8{:allowFullScreen => "true", :frameborder => "0", :height => "475", :width => "100%", :src => "http://www.youtube.com/embed/#{@video_id}", modestbranding: "1", :rel => "1"}
 
   .col-md-4
     =button_to "Have a look around", questions_path, :method => :get, class: "btn btn-danger btn-block"
+    %h5 Student Quick Sign in
+    = form_for("user", :url => user_session_path) do |f|
+      .form-group
+      = f.text_field :email, placeholder: "Email", class: 'form-control'
+      .form-group
+      = f.password_field :password, placeholder: "Password", class: 'form-control'
+      .form-group
+      = f.submit 'Quick Sign in', class: "btn btn-primary btn-block"
+
     %h5 Student Quick Sign up
     .form-group
     = form_for("user", :url => user_registration_path) do |f|
@@ -15,23 +25,46 @@
       .form-group
       = f.password_field :password_confirmation, placeholder: "Password Confirm", class: 'form-control'
       .form-group
-      = f.submit 'Sign up', class: "btn btn-primary btn-block"
+      = f.submit 'Quick Sign up', class: "btn btn-primary btn-block"
     
-    %h5 Student Quick Sign in
-    = form_for("user", :url => user_session_path) do |f|
-      .form-group
-      = f.text_field :email, placeholder: "Email", class: 'form-control'
-      .form-group
-      = f.password_field :password, placeholder: "Password", class: 'form-control'
-      .form-group
-      = f.submit 'Quick Sign in', class: "btn btn-primary btn-block"
+    
 %hr
-.col-md-4.front-explainer
-  %h4 Ask Questions & Answer Well 
-  %p The principal is very simple. Ask intelligent and well balanced questions to your peers to get 'upvotes', the better you questions, the more upvotes you'll get the better then chance you'll be spotted by an employer who's looking for someone with your skills. (Try not to answer your own questions, you're not likely to get many votes)
-.col-md-4.front-explainer
-  %h4 Build up a rep
-  %p The same principal applies to your answers (and comments), answer well, often and showing that you've got the talent that a graduate employer might be looking. Your question, answers, comments and voting history all conribute to your online reputation that stays with you as long as you're a member. 
-.col-md-4.front-explainer
-  %h4 Get noticed
-  %p Companies ask questions too, you can be certain that if they're taking the time to ask, they're looking to bring in the brightest and the best. Look out for their questions and start building up that rapport now, it might make all the difference when they're looking to hire.
+.row
+  .col-md-4.front-explainer
+    %h4 Ask Questions & Answer Well 
+    %p The principal is very simple. Ask intelligent and well balanced questions to your peers to get 'upvotes', the better you questions, the more upvotes you'll get the better then chance you'll be spotted by an employer who's looking for someone with your skills. (Try not to answer your own questions, you're not likely to get many votes)
+  .col-md-4.front-explainer
+    %h4 Build up a rep
+    %p The same principal applies to your answers (and comments), answer well, often and showing that you've got the talent that a graduate employer might be looking. Your question, answers, comments and voting history all conribute to your online reputation that stays with you as long as you're a member. 
+  .col-md-4.front-explainer
+    %h4 Get noticed
+    %p Companies ask questions too, you can be certain that if they're taking the time to ask, they're looking to bring in the brightest and the best. Look out for their questions and start building up that rapport now, it might make all the difference when they're looking to hire.
+%hr
+%h3.col-md-12 Our Mentors - Those that have been there.
+.col-md-2
+  .h4.mentor-class Consultancy
+  =image_tag "alex-mentor.jpg", class: "mentor-image"
+.col-md-10.front-explainer.mentor-bio
+  %h4 Alex Hamlin
+  %p Former management consultant having worked in the public and private sector both in the UK and the Middle East with Serco Consulting and Ernst and Young (EY). Now trying to make a go of WithHonours.
+.col-md-12.mentor-div
+.col-md-2
+  .h4.mentor-class Journalism
+  =image_tag "amy-mentor.jpg", class: "mentor-image"
+.col-md-10.front-explainer.mentor-bio
+  %h4 Amy Ford
+  %p Researcher Countryfile, BBC Bristol, responsible for finding stories and organising filming in various locations around the country with a countryside slant to them.  Currently working on stories in the Gwaun Valley in Pembrokeshire for filming after Christmas.
+.col-md-12.mentor-div
+.col-md-2
+  .h4.mentor-class HR
+  =image_tag "kate-mentor.jpg", class: "mentor-image"
+.col-md-10.front-explainer.mentor-bio
+  %h4 Kate Clarkson
+  %p  Kate's most recent role is a HR Business Partner, which is a senior manager role within Tata Steel, having come through their graduate scheme. Within the year that Kate has been a HRBP, Kate is involved with strategically developing the people agenda for her areas of responsibility. Most recently this has included the large restructuring of the organisation, due to the announcement of a proposal of 500 job losses within her division. 
+.col-md-12.mentor-div
+.col-md-2
+  .h4.mentor-class Press/Comms
+  =image_tag "emma-mentor.jpg", class: "mentor-image"
+.col-md-10.front-explainer.mentor-bio
+  %h4 Emma Brown
+  %p A MSc grad in Public Affairs and Lobbying, now working at the Department of Business, Innovation and Skills.

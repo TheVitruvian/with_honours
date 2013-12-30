@@ -5,46 +5,14 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user_or_company, except: [:index, :show]
 
   def index
-    page = params[:page] || 1
-    per_page = 20
-    @up_votes_cast = []
-    @down_votes_cast = []
     @current_agent = current_agent
-    @votes = votes_counter
+    @votes = current_agent.votes_counter(current_agent) if current_agent
 
     uri = URI("#{request.original_url}").path
+    @questions, @category = index_page_question_display(uri)
 
-    case uri
-    when "/HR"
-      @questions = Question.paginate(page: page, per_page: per_page).where(category: 'HR').order('hotness DESC')
-      @category = "HR"
-    when "/Comms"
-      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Communications')
-      @category = "Comms"
-    when "/Consulting"
-      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Consultancy')
-      @category = "Consulting"
-    when "/Marketing"
-      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Marketing')
-      @category = "Marketing"
-    when "/General"
-      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'General')
-      @category = "General"
+    @up_votes_cast, @down_votes_cast = current_agent.question_votes_identifier(current_agent) if current_agent
 
-    else
-      @questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC')
-      @category = "Top Questions"
-    end
-
-    if current_agent
-      current_agent.question_votes.each do |id|
-        if id.vote > 0
-          @up_votes_cast <<  id.question_id  
-        else
-          @down_votes_cast << id.question_id
-        end
-      end
-    end
     @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_user && current_user.role == "mentor" 
     respond_to do |format|
       format.html # index.html.erb
@@ -56,45 +24,20 @@ class QuestionsController < ApplicationController
     authorize! :create, Question
     @question = Question.new
     @current_agent = current_agent
-    @votes = votes_counter
+    @votes = current_agent.votes_counter(current_agent) if current_agent
   end
 
   def show
     @question = Question.find(params[:id])
     @current_agent = current_agent
-    @votes = votes_counter
+    @votes = current_agent.votes_counter(current_agent) if current_agent
     @answers = @question.answers.order(:up_votes_count, :down_votes_count).reverse
-    @up_votes_cast = []
-    @down_votes_cast = []
-    @answer_up_votes_cast = []
-    @answer_down_votes_cast = []
-    @comment_up_votes_cast = []
-    @comment_down_votes_cast = []
 
-    if current_agent
-      current_agent.question_votes.each do |id|
-        if id.vote > 0
-          @up_votes_cast <<  id.question_id  
-        else
-          @down_votes_cast << id.question_id
-        end
-      end
-      current_agent.answer_votes.each do |id|
-        if id.vote > 0
-          @answer_up_votes_cast <<  id.answer_id  
-        else
-          @answer_down_votes_cast << id.answer_id
-        end
-      end
-      current_agent.comment_votes.each do |id|
-        if id.vote > 0
-          @comment_up_votes_cast <<  id.comment_id  
-        else
-          @comment_down_votes_cast << id.comment_id
-        end
-      end
-    end
-    @current_agent = current_agent
+    # improve with string interpolation for question, answer, comments?
+    @up_votes_cast, @down_votes_cast = current_agent.question_votes_identifier(current_agent) if current_agent
+    @answer_up_votes_cast, @answer_down_votes_cast = current_agent.answer_votes_identifier(current_agent) if current_agent
+    @comment_up_votes_cast, @comment_down_votes_cast = current_agent.comment_votes_identifier(current_agent) if current_agent
+
     @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_user && current_agent.role == "mentor" 
   end
 
@@ -156,7 +99,7 @@ class QuestionsController < ApplicationController
       vote = -1
     end
 
-    vote = WEIGHTED_SCORE*(vote) if current_agent.class.to_s == "Company" || current_agent.role == "mentor"
+    vote = WEIGHTED_SCORE*vote if current_agent.class.to_s == "Company" || current_agent.role == "mentor"
 
     #alter make or destroy record
     if previous_vote_check.present?
@@ -219,4 +162,29 @@ class QuestionsController < ApplicationController
     question.save 
   end
 
+  def index_page_question_display(uri)
+    page = params[:page] || 1
+    per_page = 20
+    case uri
+      when "/HR"
+        questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'HR')
+        category = "HR"
+      when "/Comms"
+        questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Communications')
+        category = "Comms"
+      when "/Consulting"
+        questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Consultancy')
+        category = "Consulting"
+      when "/Marketing"
+        questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'Marketing')
+        category = "Marketing"
+      when "/General"
+        questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC').where(category: 'General')
+        category = "General"
+      else
+        questions = Question.paginate(page: page, per_page: per_page).order('hotness DESC')
+        category = "Top Questions"
+    end
+    return questions, category
+  end
 end

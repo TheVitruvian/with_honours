@@ -36,6 +36,10 @@
           = raw "#{@question.content}"
           \-
           = link_to "#{@question.owner.user_name}", @question.owner, class: "owner-name"
+          -if @question.owner_type == "Company"
+            %span.label.label-primary= "Company".html_safe
+          -if @question.owner_type == "User" && @question.owner.role == "mentor"
+            %span.label.label-success= "Mentor".html_safe
           %br
           Score:
           %span.score= @question.up_votes_count + @question.down_votes_count
