@@ -1,81 +1,76 @@
-%section.container
-  .row
-    .col-md-2.profile
-      -if @current_agent
-        - if @current_agent.class.to_s == "Company" && @current_agent.logo.present?
-          = link_to image_tag(@current_agent.logo, class: "logo"), @current_agent, id: "current-user"
-        -elsif @current_agent.class.to_s == "User" && @current_agent.profile_picture.present?
-          = link_to image_tag(@current_agent.profile_picture, class: 'logo'), @current_agent
-        %br/
-        %p= link_to "#{@current_agent.user_name}", @current_agent, id: "current-user"
-        %p
-          %span Questions score: 
-          %span#qu-score= @current_agent.questions_score
-        %p
-          %span Answers score: 
-          %span#ans-score= @current_agent.answers_score
-        %p
-          %span Voting score:
-          %span#voting-score= @votes
-      -else
-        =image_tag "placeholder-guest.png", class: 'logo'
-        %br/
-        %p Guest
-        %p Questions score: 0
-        %p Answers score: 0
-        %p Voting score: 0
-    .col-md-7.col-md-offset-2
-      %h2
-        =@category
-    
-      %span= link_to "All", questions_path
-      \|
-      %span= link_to "Comms", '/Comms'
-      \|
-      %span= link_to "Consulting", '/Consulting'
-      \|
-      %span= link_to "General", '/General'
-      \|
-      %span= link_to "HR", '/HR'
-      \|
-      %span= link_to "Marketing", '/Marketing'
+%section
+  %span.col-md-2.profile
+    -if @current_agent
+      - if @current_agent.class.to_s == "Company" && @current_agent.logo.present?
+        = link_to image_tag(@current_agent.logo, class: "logo"), @current_agent, id: "current-user"
+      -elsif @current_agent.class.to_s == "User" && @current_agent.profile_picture.present?
+        = link_to image_tag(@current_agent.profile_picture, class: 'logo'), @current_agent
       %br/
-      %span
-        ="&#9400".html_safe
-        \- asked by a company
-        \|
-        ="&#9410".html_safe
-        \- asked by a mentor
-      - @questions.each do |question| 
-        .questions-break
-          %hr
-        .questions-score
-          -if question.owner_type == "Company"
-            = "&#9400".html_safe
-          -if question.owner_type == "User" && question.owner.role == "mentor"
-            = "&#9410".html_safe
-          = link_to "#{question.title}", question
-          \-
-          = link_to "#{question.owner.user_name}", question.owner, class: "owner-name"
+      %p= link_to "#{@current_agent.user_name}", @current_agent, id: "current-user"
+      %p
+        %span Questions score: 
+        %span#qu-score= @current_agent.questions_score
+      %p
+        %span Answers score: 
+        %span#ans-score= @current_agent.answers_score
+      %p
+        %span Voting score:
+        %span#voting-score= @votes
+    -else
+      =image_tag "placeholder-guest.png", class: 'logo'
+      %br/
+      %p Guest
+      %p Questions score: 0
+      %p Answers score: 0
+      %p Voting score: 0
+  .col-md-8.col-md-offset-3
+    %h2
+      =@category
+  
+    %span= link_to "All", questions_path
+    \|
+    %span= link_to "Comms", '/Comms'
+    \|
+    %span= link_to "Consulting", '/Consulting'
+    \|
+    %span= link_to "General", '/General'
+    \|
+    %span= link_to "HR", '/HR'
+    \|
+    %span= link_to "Marketing", '/Marketing'
+    %br/
+    %span
+    - @questions.each do |question| 
+      .questions-break
+        %hr
+      .questions-score
+      
+        = link_to "#{question.title}", question
+        \-
+        = link_to "#{question.owner.user_name}", question.owner, class: "owner-name"
+        -if question.owner_type == "Company"
+          %span.label.label-primary= "Company".html_safe
+        -if question.owner_type == "User" && question.owner.role == "mentor"
+          %span.label.label-success= "Mentor".html_safe
+        %br
+        Score:
+        %span.score= question.up_votes_count + question.down_votes_count
+        Answers:
+        %span.count= question.answers.count
+        - if can? :vote, question
+          -if @up_votes_cast.include? question.id
+            = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up voted-on', method: :put
+          -else
+            = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up', method: :put
+          -if @down_votes_cast.include? question.id
+            = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down voted-on'
+          -else
+            = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down'
+        - if can? [:edit, :destroy], question
+          = link_to 'Edit', edit_question_path(question) 
+          = link_to 'Delete', question_path(question), method: :delete, :data => { :confirm => 'Are you sure?' }
+        
 
-
-          %br
-          Score:
-          %span.score= question.up_votes_count + question.down_votes_count
-          Answers:
-          %span.count= question.answers.count
-          - if can? :vote, question
-            -if @up_votes_cast.include? question.id
-              = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up voted-on', method: :put
-            -else
-              = link_to "&#x25B2".html_safe, vote_question_path(question, vote: "up", index: "true"), class: 'vote-link vote-up', method: :put
-            -if @down_votes_cast.include? question.id
-              = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down voted-on'
-            -else
-              = link_to "&#x25BC".html_safe, vote_question_path(question, vote: "down", index: "true"), method: :put, class: 'vote-link vote-down'
-          - if can? [:edit, :destroy], question
-            = link_to 'Edit', edit_question_path(question) 
-            = link_to 'Delete', question_path(question), method: :delete, :data => { :confirm => 'Are you sure?' }
 
 %br/
 %br/

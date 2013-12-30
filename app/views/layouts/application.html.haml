@@ -6,9 +6,9 @@
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Karla:400,400italic", rel: "stylesheet", type: "text/css"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  %body.body.span8
+  %body.body.col-md-9
     %header.nav.animated.fadeInDown
-      %span.WH-logo= link_to "WithHonours.co", root_url
+      %span2.WH-logo= link_to "WithHonours.co", root_url
       - current_agent = (current_user) || (current_company)
       - if current_agent
         %span.right
@@ -54,7 +54,7 @@
               = submit_tag 'Search', class: 'btn btn-primary btn-xs'
 
       
-      %hr
+    %hr
       .flash.animated.fadeInDown
         - flash.each do |name, msg|
           = content_tag :div, msg, :id => "flash_#{name}"
