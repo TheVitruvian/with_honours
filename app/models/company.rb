@@ -17,6 +17,7 @@ class Company < ActiveRecord::Base
   has_many :comment_votes,  as: :owner
 
   validates :user_name, presence: true, uniqueness: true
+  validates :email,     presence: true, uniqueness: true
 
   mount_uploader :logo, ImageUploader
 end

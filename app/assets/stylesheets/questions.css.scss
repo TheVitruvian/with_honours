@@ -10,15 +10,28 @@ $main-grey: #F0EFE9;
   display: block;
   margin: auto;
 }
-
 .profile{
-  position: fixed;
+  text-align: center;
 }
+
+@media only screen and (min-width: 992px) {
+  .profile{
+    display: block;
+    position: fixed;
+    text-align: center;
+  }
+}
+
+
 
 
 /**************
 * QUESTIONS   *
 **************/
+
+.questions{
+  white-space: nowrap;
+}
 .questions-content{
   background-color: $main-grey;
   border-radius:10px;

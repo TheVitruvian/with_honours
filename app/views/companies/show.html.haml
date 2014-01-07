@@ -18,11 +18,8 @@
 .col-md-9.row.col-md-offset-3
   - @questions.each do |question| 
     .questions-score
-      -if question.owner_type == "Company"
-        = "&#169".html_safe
-      -if question.owner_type == "User" && question.owner.role == "mentor"
-        = "&#9410".html_safe
       = link_to "#{question.title}", question
+      %span.label.label-primary= "Company"
       %br
       Score:
       %span.score= question.up_votes_count + question.down_votes_count

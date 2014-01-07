@@ -55,6 +55,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem "rspec-rails"
+  gem "shoulda"
   gem 'shoulda-matchers'
   gem "database_cleaner"
   gem "capybara"
