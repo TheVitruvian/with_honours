@@ -16,7 +16,9 @@ class QuestionsController < ApplicationController
     @userVote = WEIGHTED_SCORE if current_agent.class.to_s == "Company" || current_user && current_user.role == "mentor" 
     respond_to do |format|
       format.html # index.html.erb
-      
+    
+
+
     end
   end
 
@@ -42,6 +44,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    session[:anon_question_text] = "Hekjsdhflkjsdhflkajshdflakshdfiaw4fhlk.jahdfliasyefph" # pull session
     authorize! :create, Question
     @question = Question.new(params[:question])
     @question.owner_id = current_agent.id
@@ -163,6 +166,7 @@ class QuestionsController < ApplicationController
   end
 
   def index_page_question_display(uri)
+    # change to params rather than URI
     page = params[:page] || 1
     per_page = 20
     case uri
