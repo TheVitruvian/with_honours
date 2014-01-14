@@ -20,4 +20,46 @@ class Company < ActiveRecord::Base
   validates :email,     presence: true, uniqueness: true
 
   mount_uploader :logo, ImageUploader
+
+    def question_votes_identifier(current_agent)
+    up_votes_cast, down_votes_cast = [], []
+
+    current_agent.question_votes.each do |id|
+      if id.vote > 0
+        up_votes_cast <<  id.question_id  
+      else
+        down_votes_cast << id.question_id
+      end
+    end
+    return up_votes_cast, down_votes_cast
+  end
+  def answer_votes_identifier(current_agent)
+    answer_up_votes_cast, answer_down_votes_cast = [], []
+
+    current_agent.answer_votes.each do |id|
+      if id.vote > 0
+        answer_up_votes_cast <<  id.answer_id  
+      else
+        answer_down_votes_cast << id.answer_id
+      end
+    end
+    return answer_up_votes_cast, answer_down_votes_cast
+  end
+  def comment_votes_identifier(current_agent)
+    comment_up_votes_cast, comment_down_votes_cast = [], []
+
+    current_agent.comment_votes.each do |id|
+      if id.vote > 0
+        comment_up_votes_cast <<  id.comment_id  
+      else
+        comment_down_votes_cast << id.comment_id
+      end
+    end
+    return comment_up_votes_cast, comment_down_votes_cast
+  end
+
+
+  def votes_counter(current_agent)
+    current_agent.question_votes.count + current_agent.answer_votes.count + current_agent.comment_votes.count
+  end
 end
