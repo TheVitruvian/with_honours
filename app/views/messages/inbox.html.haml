@@ -1,10 +1,10 @@
 .row
   #inbox-contacts.col-md-3
-    - if @contact_list.present?
-      %h3 Contacts
+    - if @company_contact_list.present?
+      %h3 Company Contacts
       %ul.contacts-list
-        - @contact_list.each do |contact|
-          %li= link_to contact.first_name#, conversation_path(contact.id), {:class => 'inbox-conversation-link'}
+        - @company_contact_list.each do |contact|
+          %li= link_to contact.user_name#, conversation_path(contact.id), {:class => 'inbox-conversation-link'}
     - else
       %h3 No messages yet
 

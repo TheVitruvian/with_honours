@@ -34,15 +34,26 @@ class Company < ActiveRecord::Base
   end
 
   def contact_list
-    User.find_all_by_id [contacted, contacted_by]
+      companies_contacted, users_contacted = contacted
+      companies_in_touch, users_in_touch = contacted_by
+      user_inbox_display = User.find_all_by_id [users_contacted, users_in_touch]
+      company_inbox_display = Company.find_all_by_id [companies_contacted, companies_in_touch]
+
+      return user_inbox_display, company_inbox_display
   end
 
   def contacted
-    self.messages_sent.pluck(:recipient_id)   # Returns ids of users/companies has user has sent messages to
+    companies_contacted = []
+    users_contacted = []
+    self.messages_sent.map { |m| if m.recipient_type == "Company" then companies_contacted << m.recipient_id else users_contacted << m.recipient_id end} 
+    return companies_contacted, users_contacted
   end
 
   def contacted_by
-    self.messages_received.pluck(:owner_id)  # Returns ids of users/companies who've messaged this user
+    companies_in_touch = []
+    users_in_touch = []
+    self.messages_received.map { |m| if m.recipient_type == "Company" then companies_in_touch << m.recipient_id else users_in_touch << m.recipient_id end }  # Returns ids of users/companies who've messaged this user
+    return companies_in_touch, users_in_touch
   end
 
 #VOTING

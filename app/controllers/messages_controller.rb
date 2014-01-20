@@ -3,7 +3,9 @@ class MessagesController < ApplicationController
   authorize_resource
 
   def inbox
-    @contact_list = current_agent.contact_list
+    
+    @user_contact_list, @company_contact_list = current_agent.contact_list
+
   end
 
   def conversation
