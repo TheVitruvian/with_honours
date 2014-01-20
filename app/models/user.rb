@@ -9,19 +9,47 @@ class User < ActiveRecord::Base
   attr_accessible :degree_achieved, :degree_classification, :degree_score, :first_name, :last_name, :profile_picture, :role, :user_name, :reset_password_token, :reset_password_sent_at, :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :confirmed_at, :confirmation_sent_at, :unconfirmed_email, :provider, :uid, :university_id, :degree_title
 
   belongs_to :university
-  has_many :questions,      as: :owner
-  has_many :answers,        as: :owner
-  has_many :comments,       as: :owner
-  
-  has_many :question_votes, as: :owner
-  has_many :answer_votes,   as: :owner
-  has_many :comment_votes,  as: :owner
 
+  has_many :messages_sent, :class_name => 'Message',        as: :owner
+  has_many :messages_received, :class_name => 'Message',    as: :recipient
+  has_many :questions,                                      as: :owner
+  has_many :answers,                                        as: :owner
+  has_many :comments,                                       as: :owner
+  has_many :question_votes,                                 as: :owner
+  has_many :answer_votes,                                   as: :owner
+  has_many :comment_votes,                                  as: :owner
 
   validates :user_name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
 
   mount_uploader :profile_picture, ImageUploader
+
+#MESSAGING
+  def all_messages
+    [self.messages_sent, self.messages_received].flatten
+  end
+
+  def messages_with_other other_id
+    sent     = self.messages_sent.where("recipient_id = ?", other_user_id)
+    received = self.messages_received.where("sender_id = ?", other_user_id)
+    [sent, received].flatten.sort_by(&:created_at)
+  end
+
+  def contact_list
+    User.find_all_by_id [users_contacted, users_contacted_by]
+  end
+
+  def users_contacted
+    self.messages_sent.pluck(:recipient_id)   # Returns ids of users has user has sent messages to
+  end
+
+  def users_contacted_by
+    self.messages_received.pluck(:sender_id)  # Returns ids of users who've messaged this user
+  end
+
+
+
+#VOTING
 
   def question_votes_identifier(current_agent)
     up_votes_cast, down_votes_cast = [], []

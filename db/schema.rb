@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131216094009) do
+ActiveRecord::Schema.define(:version => 20140120172520) do
 
   create_table "answer_votes", :force => true do |t|
     t.integer "owner_id"
@@ -78,6 +78,18 @@ ActiveRecord::Schema.define(:version => 20131216094009) do
 
   add_index "companies", ["email"], :name => "index_companies_on_email", :unique => true
   add_index "companies", ["reset_password_token"], :name => "index_companies_on_reset_password_token", :unique => true
+
+  create_table "messages", :force => true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.string   "subject"
+    t.text     "content"
+    t.boolean  "is_read"
+    t.boolean  "is_archived"
+    t.datetime "created_at"
+  end
 
   create_table "question_votes", :force => true do |t|
     t.integer "owner_id"
