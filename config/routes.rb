@@ -15,11 +15,12 @@ WithHonours::Application.routes.draw do
     resources :companies
   end
 
-  get '/HR', to: 'questions#index'
-  get '/Comms', to: 'questions#index'
+  get 'inbox',       to: 'messages#inbox'
+  get '/HR',         to: 'questions#index'
+  get '/Comms',      to: 'questions#index'
   get '/Consulting', to: 'questions#index'
-  get '/General', to: 'questions#index'
-  get '/Marketing', to: 'questions#index'
+  get '/General',    to: 'questions#index'
+  get '/Marketing',  to: 'questions#index'
 
   authenticated :user do
     root :to => "questions#index"

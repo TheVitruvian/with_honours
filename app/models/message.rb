@@ -5,6 +5,4 @@ class Message < ActiveRecord::Base
 
   attr_accessible :owner, :recipient, :content, :is_read, :is_archived, :created_at, :subject
 
-
-
 end

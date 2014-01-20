@@ -29,22 +29,22 @@ class User < ActiveRecord::Base
     [self.messages_sent, self.messages_received].flatten
   end
 
-  def messages_with_other other_id
-    sent     = self.messages_sent.where("recipient_id = ?", other_user_id)
-    received = self.messages_received.where("sender_id = ?", other_user_id)
+  def messages_with_other other_owner_id
+    sent     = self.messages_sent.where(owner.id == other_owner_id)
+    received = self.messages_received.where(recipient_id == other_owner_id)
     [sent, received].flatten.sort_by(&:created_at)
   end
 
   def contact_list
-    User.find_all_by_id [users_contacted, users_contacted_by]
+      User.find_all_by_id [contacted, contacted_by]
   end
 
-  def users_contacted
-    self.messages_sent.pluck(:recipient_id)   # Returns ids of users has user has sent messages to
+  def contacted
+    self.messages_sent.map { |m| [m.recipient_id, m.recipient_type] }   # Returns ids of users/companies has user has sent messages to
   end
 
-  def users_contacted_by
-    self.messages_received.pluck(:sender_id)  # Returns ids of users who've messaged this user
+  def contacted_by
+    self.messages_received.map { |m| [m.owner_id, m.owner_type] }  # Returns ids of users/companies who've messaged this user
   end
 
 
