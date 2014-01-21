@@ -6,22 +6,58 @@ class Company < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-
   attr_accessible :user_name, :biography, :logo
 
-  has_many :questions,      as: :owner
-  has_many :answers,        as: :owner
-  has_many :comments,       as: :owner
-  has_many :question_votes, as: :owner
-  has_many :answer_votes,   as: :owner
-  has_many :comment_votes,  as: :owner
+  has_many :messages_sent, :class_name => 'Message',        as: :owner
+  has_many :messages_received, :class_name => 'Message',    as: :recipient
+  has_many :questions,            as: :owner
+  has_many :answers,              as: :owner
+  has_many :comments,             as: :owner
+  has_many :question_votes,       as: :owner
+  has_many :answer_votes,         as: :owner
+  has_many :comment_votes,        as: :owner
 
   validates :user_name, presence: true, uniqueness: true
   validates :email,     presence: true, uniqueness: true
 
   mount_uploader :logo, ImageUploader
 
-    def question_votes_identifier(current_agent)
+#MESSAGING
+  def all_messages
+    [self.messages_sent, self.messages_received].flatten
+  end
+
+  def messages_with_other other_owner_id, other_owner_type
+    sent     = self.messages_sent.where("recipient_id = ?", other_owner_id && "recipient_type = ?", other_owner_type)
+    received = self.messages_received.where(recipient_id == other_owner_id)
+    [sent, received].flatten.sort_by(&:created_at)
+  end
+
+  def contact_list
+      companies_contacted, users_contacted = contacted
+      companies_in_touch, users_in_touch = contacted_by
+      user_inbox_display = User.find_all_by_id [users_contacted, users_in_touch]
+      company_inbox_display = Company.find_all_by_id [companies_contacted, companies_in_touch]
+
+      return user_inbox_display, company_inbox_display
+  end
+
+  def contacted
+    companies_contacted = []
+    users_contacted = []
+    self.messages_sent.map { |m| if m.recipient_type == "Company" then companies_contacted << m.recipient_id else users_contacted << m.recipient_id end} 
+    return companies_contacted, users_contacted
+  end
+
+  def contacted_by
+    companies_in_touch = []
+    users_in_touch = []
+    self.messages_received.map { |m| if m.recipient_type == "Company" then companies_in_touch << m.recipient_id else users_in_touch << m.recipient_id end }  # Returns ids of users/companies who've messaged this user
+    return companies_in_touch, users_in_touch
+  end
+
+#VOTING
+  def question_votes_identifier(current_agent)
     up_votes_cast, down_votes_cast = [], []
 
     current_agent.question_votes.each do |id|
@@ -33,6 +69,7 @@ class Company < ActiveRecord::Base
     end
     return up_votes_cast, down_votes_cast
   end
+
   def answer_votes_identifier(current_agent)
     answer_up_votes_cast, answer_down_votes_cast = [], []
 
@@ -45,6 +82,7 @@ class Company < ActiveRecord::Base
     end
     return answer_up_votes_cast, answer_down_votes_cast
   end
+
   def comment_votes_identifier(current_agent)
     comment_up_votes_cast, comment_down_votes_cast = [], []
 
@@ -57,7 +95,6 @@ class Company < ActiveRecord::Base
     end
     return comment_up_votes_cast, comment_down_votes_cast
   end
-
 
   def votes_counter(current_agent)
     current_agent.question_votes.count + current_agent.answer_votes.count + current_agent.comment_votes.count
