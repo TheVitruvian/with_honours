@@ -22,6 +22,9 @@
               = link_to 'Search for grads', new_search_path
             %span
               \|
+          %span= link_to 'Inbox', inbox_path
+          %span
+            \| 
           %span
             = link_to 'Edit Profile', send("edit_#{current_agent.class.to_s.downcase}_registration_path")
           %span
