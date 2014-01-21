@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
     [self.messages_sent, self.messages_received].flatten
   end
 
-  def messages_with_other other_owner_id
-    sent     = self.messages_sent.where(owner.id == other_owner_id)
-    received = self.messages_received.where(recipient_id == other_owner_id)
+  def messages_with_other other_owner_id, other_owner_type
+    sent     = self.messages_sent.where("recipient_id = ?", other_owner_id).where("recipient_type = ?", other_owner_type)
+    received = self.messages_received.where("owner_id = ?", other_owner_id).where("owner_type = ?", other_owner_type)
     [sent, received].flatten.sort_by(&:created_at)
   end
 

@@ -9,22 +9,19 @@ class MessagesController < ApplicationController
   end
 
   def conversation
-    @other_user      = User.find params[:id]
-    @message_thread  = current_agent.messages_with_user params[:id]
-    @new_message     = current_agent.messages_sent.new(recipient_id: @other_user.id)
+    unless params[:class] == "Company" 
+      @other_user      = User.find params[:id]
+    else
+      @other_user      = Company.find params[:id]
+    end
+
+    @message_thread  = current_agent.messages_with_other params[:id],params[:class] 
+    @new_message     = current_agent.messages_sent.new(recipient: @other_user)
 
     render :partial => 'conversation'
   end
 
   def create
-    if current_agent.over_daily_message_limit?
-      if request.xhr?
-        render :js => "Reached daily message limit. Please upgrade to premium." and return
-      else
-        redirect_to inbox_url, :notice => "Reached daily message limit. Please upgrade to premium." and return
-      end
-    end
-
     message = Message.create params[:message]
     if request.xhr?
       render :partial => 'message', locals: {:message => message}

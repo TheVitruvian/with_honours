@@ -2,6 +2,6 @@
   .message-body
     = simple_format message.content
   .message-from
-    = message.sender.username
+    = message.owner.user_name
     %small #{time_ago_in_words message.created_at} ago
   = link_to 'Delete', message_path(message), {:class => 'delete-message'}
