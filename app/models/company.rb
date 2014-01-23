@@ -22,6 +22,11 @@ class Company < ActiveRecord::Base
 
   mount_uploader :logo, ImageUploader
 
+
+  def name
+    self.user_name
+  end
+
 #MESSAGING
   def all_messages
     [self.messages_sent, self.messages_received].flatten

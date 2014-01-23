@@ -24,6 +24,11 @@ class User < ActiveRecord::Base
 
   mount_uploader :profile_picture, ImageUploader
 
+
+  def name
+    self.first_name + self.last_name
+  end
+
 #MESSAGING
   def all_messages
     [self.messages_sent, self.messages_received].flatten

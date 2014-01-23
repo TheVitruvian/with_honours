@@ -9,7 +9,7 @@
       %h4 Grad Contacts
       %ul.contacts-list
         - @user_contact_list.each do |contact|
-          %li= link_to contact.first_name, conversation_path(contact.id), {:class => 'inbox-conversation-link'}
+          %li= link_to contact.user_name, conversation_path(contact.id), {:class => 'inbox-conversation-link'}
     -if @company_contact_list.blank? && @user_contact_list.blank?
       %h4 No messages yet
 

@@ -15,6 +15,9 @@
   %br/
   = raw @company.biography
 
+  =link_to "Message #{@company.name}", new_message_path, {:class => "btn btn-small btn-primary", :id => "message-user"}
+    
+
 .col-md-9.row.col-md-offset-3
   - @questions.each do |question| 
     .questions-score
